@@ -18,10 +18,28 @@
    - 模型家族：按模型來源分類，如 `qwen`、`llama`、`mistral`、`gemma`
    - 具體變體：完整模型名稱，如 `qwen3.6-35B-think`
 2. 不要修改其他模型的檔案
-3. 不要修改 `README.md`、`AGENTS.md`、`COMPARISON.md`
+3. 不要修改 `README.md`、`AGENTS.md`
 
-## 評分規則
+## 支援的模型格式
 
-完成後在 [`COMPARISON.md`](COMPARISON.md) 的評分表中填入分數。
+- 資料夾內 `index.html`（Qwen、Google、OpenAI 等）
+- 資料夾內 `apple-benefits-card.html`（LiquidAI 等）
 
-### 總分 = 結構(20) + 設計(30) + 互動(20) + 內容(15) + 品質(15) = 100
+## 測試模型清單
+
+| 模型家族 | 具體變體 | 檔案名稱 |
+|---------|---------|---------|
+| Google | Gemma4-12B | `index.html` |
+| Google | HauhauCS-Gemma-4-26B-A4B | `index.html` |
+| OpenAI | GPT-OSS-20B | `index.html` |
+| Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `index.html` |
+| Qwen | Qwen-3.5-9B | `index.html` |
+| Qwen | Qwen3.6-35B-think | `index.html` |
+| LiquidAI | LFM2.5-2.6B | `apple-benefits-card.html` |
+
+## 評估標準
+
+1. **視覺設計**：撕式卡片風格、果園筆記編號、整體美感
+2. **內容完整性**：蘋果好處、營養數據、資訊正確性
+3. **互動性**：CSS 動畫、響應式設計
+4. **程式碼品質**：HTML/CSS 結構、無外部依賴

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>果園筆記 - 蘋果</title>
+    <style>
+        :root {
+            --paper-bg: #fdfbf7;
+            --text-color: #3c3c3c;
+            --accent-color: #8e443d;
+            --line-color: #d1d1d1;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+        }
+
+        /* 卡片主體 */
+        .note-card {
+            background-color: var(--paper-bg);
+            width: 380px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.05);
+            position: relative;
+            border-radius: 2px;
+            border: 1px solid var(--border-color);
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        /* 頂部資訊 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px dashed var(--line-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .note-no {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-color);
+        }
+
+        /* 正文內容 */
+        .content {
+            text-align: center;
+        }
+
+        .apple-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+        }
+
+        .benefits-list {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .benefit-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            cursor: default;
+            border: 1px solid transparent;
+        }
+
+        .benefit-item:hover {
+            background: white;
+            border-color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .benefit-item::before {
+            content: "✓";
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* 營養數據塊 */
+        .nutrition-box {
+            background: #f3f3f3;
+            padding: 15px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            font-size: 0.85rem;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .nutrition-item span {
+            font-weight: bold;
+            display: block;
+        }
+
+        /* 底部 */
+        .footer {
+            margin-top: 40px;
+            font-size: 10px;
+            color: #999;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        /* 撕線裝飾 */
+        .tear-line {
+            height: 2px;
+            border-top: 1px dashed var(--line-color);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="note-card">
+        <div class="header">
+            <span class="note-no">ORCHARD NOTES 01</span>
+            <span class="title">🍎 蘋果</span>
+        </div>
+
+        <div class="tear-line"></div>
+
+        <div class="content">
+            <div class="apple-emoji">🍎</div>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">「醫生每天給你一顆蘋果，讓你遠離醫生。」</p>
+            
+            <ul class="benefits-list">
+                <li class="benefit-item">豐富的維生素 C，提升免疫力</li>
+                <li class="benefit-item">高纖維含量，促進腸胃蠕動</li>
+                <li class="benefit-item">抗氧化劑，延緩細胞老化</li>
+                <li class="benefit-item">幫助維持健康的血壓與血糖</li>
+            </ul>
+
+            <div class="nutrition-box">
+                <div class="nutrition-item"><span>卡路里</span>約 52 kcal</div>
+                <div class="nutrition-item"><span>膳食纖維</span>0.5g</div>
+                <div class="nutrition-item"><span>維生素 C</span>4.6mg</div>
+                <div class="nutrition-item"><span>鉀</span>107mg</div>
+            </div>
+
+        <div class="footer">
+            © 2026 果園筆記系列 | 每日健康守護
+        </div>
+    </div>
+
+</body>
+</html>

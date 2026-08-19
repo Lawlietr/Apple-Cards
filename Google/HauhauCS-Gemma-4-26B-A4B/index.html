@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>果園筆記 - 蘋果</title>
+    <!-- 引入手寫風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper-color: #fdfaf1;
+            --accent-red: #e63946;
+            --accent-green: #2a9d8f;
+            --text-color: #4a4a4a;
+            --ink-color: #2b2d42;
+        }
+
+        body {
+            background-color: #e0e0e0; /* 桌面底色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-color);
+        }
+
+        /* 卡片主體 */
+        .note-card {
+            background-color: var(--paper-color);
+            width: 350px;
+            padding: 30px;
+            position: relative;
+            /* 模擬撕裂邊緣的質感 */
+            clip-path: polygon(
+                0% 2%, 5% 0%, 10% 3%, 15% 1%, 20% 4%, 25% 1%, 30% 3%, 35% 0%, 40% 2%, 45% 1%, 50% 4%, 
+                55% 1%, 60% 3%, 65% 0%, 70% 2%, 75% 1%, 80% 4%, 85% 1%, 90% 3%, 95% 0%, 100% 2%, 
+                98% 50%, 100% 98%, 50% 100%, 2% 98%
+            );
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
+            /* 加上一點紙張的陰影感 */
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1), inset 0 0 50px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .note-card:hover {
+            transform: rotate(-1deg) scale(1.02);
+        }
+
+        /* 頂部資訊 */
+        .header {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .id-number {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.2rem;
+            color: var(--accent-red);
+        }
+
+        h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2rem;
+            margin: 0;
+            text-align: center;
+            color: var(--ink-color);
+        }
+
+        /* 撕線 */
+        .torn-line {
+            height: 2px;
+            background: repeating-linear-gradient(
+                to right,
+                var(--ink-color),
+                var(--ink-color) 5px,
+                transparent 5px,
+                transparent 10px
+            );
+            margin: 15px 0;
+            opacity: 0.3;
+        }
+
+        /* 正文內容 */
+        .content {
+            text-align: center;
+        }
+
+        .apple-emoji {
+            font-size: 80px;
+            display: block;
+            margin: 10px 0;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+            animation: bounce 3s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .benefits-list {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .benefits-list li {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: default;
+            font-size: 0.95rem;
+        }
+
+        .benefits-list li:hover {
+            transform: translateX(10px);
+            background: white;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            border-left-color: var(--accent-red);
+        }
+
+        /* 營養數據區塊 */
+        .nutrition-box {
+            background-color: rgba(42, 157, 143, 0.1);
+            border: 1px dashed var(--accent-green);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+
+        .nutrition-box h3 {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            text-decoration: underline;
+        }
+
+        .nutri-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .nutri-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        /* 卡片底部 */
+        .footer {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            color: #aaa;
+            text-align: center;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="note-card">
+        <div class="header">
+            <div class="id-number">果園筆記 No. 01</div>
+        </div>
+
+        <h1>蘋果的驚人好處</h1>
+        
+        <div class="torn-line"></div>
+
+        <div class="content">
+            <span class="apple-emoji">🍎</span>
+            
+            <ul class="benefits-list">
+                <li>✨ <strong>豐富纖維</strong>：促進腸道蠕動，幫助消化</li>
+                <li>❤️ <strong>護心健康</strong>：含有抗氧化劑，維護心血管</li>
+                <li>🦷 <strong>口腔清潔</strong>：咀嚼時有助於清潔牙齒</li>
+                <li>🛡️ <strong>提升免疫</strong>：補充維生素，增強抵抗力</li>
+            </ul>
+
+            <div class="nutrition-box">
+                <h3>📊 營養小檔案 (每100g)</h3>
+                <div class="nutri-grid">
+                    <div class="nutri-item"><span class="label">卡路里:</span> <span>~52kcal</span></div>
+                    <div class="nutri-item"><span class="label">膳食纖維:</span> <span>2.4g</span></div>
+                    <div class="nutri-item"><span class="label">維生素C:</span> <span>豐富</span></div>
+                    <div class="nutri-item"><span class="label">水分:</span> <span>~86%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2026 Orchard Notes — 每日吃一個，醫生遠離我
+        </div>
+    </div>
+
+</body>
+</html>

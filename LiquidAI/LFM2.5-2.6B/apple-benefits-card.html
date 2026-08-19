@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>果園筆記 01 - 吃蘋果的好處</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #faf8f5;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 30px 40px 20px;
+      border-bottom: 1px solid #e8d5b7;
+    }
+
+    .notebook-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #8b4513;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #5d4037;
+      text-align: center;
+    }
+
+    .tear-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 40px 20px;
+      border-top: 2px dashed #b8860b;
+      margin-bottom: 25px;
+    }
+
+    .tear-line::before,
+    .tear-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #b8860b, transparent);
+    }
+
+    .content {
+      padding: 30px 40px;
+    }
+
+    .apple-image {
+      width: 200px;
+      height: auto;
+      margin-bottom: 25px;
+      display: block;
+    }
+
+    .benefits-list {
+      list-style: none;
+      margin-top: 30px;
+    }
+
+    .benefit-item {
+      background: #fdf5e6;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .benefit-item h3 {
+      color: #8b4513;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .benefit-item p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .nutritional-block {
+      background: #fff8e1;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+      border-left: 4px solid #b8860b;
+    }
+
+    .nutritional-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f5e6c3;
+    }
+
+    .nutritional-item:last-child {
+      border-bottom: none;
+    }
+
+    .nutritional-value {
+      font-weight: bold;
+      color: #8b4513;
+    }
+
+    .footer {
+      padding: 20px 40px;
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Header with Notebook Number -->
+    <div class="header">
+      <div class="notebook-number">果園筆記編號：01</div>
+      <h1 class="title">吃蘋果的好處</h1>
+    </div>
+
+    <!-- Tear line -->
+    <div class="tear-line">
+      <span>✂️</span>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/Apple.jpg/200px-Apple.jpg" alt="Apple" class="apple-image">
+
+      <h2>為什麼要吃蘋果？</h2>
+      <ul class="benefits-list">
+        <li class="benefit-item">
+          <h3>富含維生素C</h3>
+          <p>每顆蘋果提供約 14% 的維生素C，幫助增強免疫力與抗氧化。</p>
+        </li>
+        <li class="benefit-item">
+          <h3>膳食纖維豐富</h3>
+          <p>含有約 4-5 克膳食纖維，有助於調節腸道運作與降低血糖。</p>
+        </li>
+        <li class="benefit-item">
+          <h3>富含鉀</h3>
+          <p>提供約 195 mg 的鉀，幫助維持心臟肌肉正常收縮與血壓穩定。</p>
+        </li>
+        <li class="benefit-item">
+          <h3>抗發炎特性</h3>
+          <p>含有花青素與維生素E，幫助減少體內發炎反應，支持皮膚健康。</p>
+        </li>
+        <li class="benefit-item">
+          <h3>改善心臟健康</h3>
+          <p>天然的膳食纖維與鉀有助於降低壞血管膽固醇，保護心臟。</p>
+        </li>
+      </ul>
+
+      <!-- Nutritional data block -->
+      <div class="nutritional-block">
+        <h3>營養數據</h3>
+        <div class="nutritional-item">
+          <span class="nutritional-value">≈ 95 kcal</span>
+          <span>每顆中等大小的蘋果</span>
+        </div>
+        <div class="nutritional-item">
+          <span class="nutritional-value">4.5 g</span>
+          <span>膳食纖維</span>
+        </div>
+        <div class="nutritional-item">
+          <span class="nutritional-value">195 mg</span>
+          <span>鉀</span>
+        </div>
+        <div class="nutritional-item">
+          <span class="nutritional-value">14% DV</span>
+          <span>維生素C</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>果園筆記 01 - 健康生活小提醒</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -8,15 +8,20 @@
 apple-cards/
 ├── README.md              ← 你現在讀的檔案
 ├── AGENTS.md              ← 任務規格書（給 agent 看的提示詞與規範）
-├── COMPARISON.md          ← 評分表與測試結果彙整
-├── qwen/                  ← Qwen 模型家族
-│   └── qwen3.6-35B-think/
-│       ├── index.html     ← 模型產出
-│       └── notes.md       ← 測試環境與觀察
-├── {模型家族}/            ← 例如 llama、mistral、gemma...
-│   └── {具體變體}/
-│       ├── index.html
-│       └── notes.md
+├── Google/
+│   ├── Gemma4-12B/
+│   └── HauhauCS-Gemma-4-26B-A4B/
+├── OpenAI/
+│   └── GPT-OSS-20B/
+├── Qwen/
+│   ├── Kwaipilot_KAT-Coder-V2.5-Dev/
+│   ├── Qwen-3.5-9B/
+│   ├── Qwen3.6-35B-think/
+│   │   ├── index.html     ← 模型產出
+│   │   └── notes.md       ← 測試環境與觀察
+├── LiquidAI/
+│   └── LFM2.5-2.6B/
+│       └── apple-benefits-card.html
 └── ...
 ```
 
@@ -26,16 +31,19 @@ apple-cards/
 2. 將模型產出的 `index.html` 放入對應 `{模型家族}/{具體變體}/` 資料夾
 3. 在該資料夾內建立 `notes.md` 記錄測試環境參數
 4. 開啟 `index.html` 於瀏覽器預覽
-5. 將評分填入 [`COMPARISON.md`](COMPARISON.md)
 
-## 評分維度
+## 已測試模型
 
-| 維度 | 說明 | 權重 |
-|------|------|------|
-| **HTML 結構** | 語意化標籤、語法正確性 | 20% |
-| **CSS 設計** | 視覺美感、風格一致性、動畫效果 | 30% |
-| **互動性** | hover / 點擊等使用者回饋 | 20% |
-| **內容完整度** | 是否涵蓋所有規格要求 | 15% |
-| **程式碼品質** | 可讀性、命名、組織結構 | 15% |
+| 模型家族 | 具體變體 | 檔案 |
+|---------|---------|------|
+| Google | Gemma4-12B | `Google/Gemma4-12B/index.html` |
+| Google | HauhauCS-Gemma-4-26B-A4B | `Google/HauhauCS-Gemma-4-26B-A4B/index.html` |
+| OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
+| Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
+| Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
+| Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |
+| LiquidAI | LFM2.5-2.6B | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
 
-> 總分 = 結構(20) + 設計(30) + 互動(20) + 內容(15) + 品質(15) = **100**
+## 提示詞規範
+
+請參閱 [`AGENTS.md`](./AGENTS.md)

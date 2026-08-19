@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>果園筆記 01 - 吃蘋果的好處</title>
+<style>
+  body{
+    font-family:"Noto Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#e8f4e9;
+    padding:2rem;
+  }
+  .card{
+    width:320px;
+    background:#fafaf8;
+    border:1px solid #d5d5d5;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
+    overflow:hidden;
+    position:relative;
+    padding-bottom:1.5rem; /* 讓底部留空 */
+  }
+  .header{
+    background:#c5d2b9;
+    padding:0.75rem 1rem;
+    font-weight:600;
+    color:#2c5d29;
+  }
+  .header span{
+    color:#e8715d;
+    font-weight:700;
+  }
+  .tear{
+    width:20px;
+    height:20px;
+    background:#e8f4e9;
+    border-bottom-left-radius:100%;
+    border-bottom-right-radius:100%;
+    border:1px solid #d5d5d5;
+    border-top:none;
+    margin:0 auto;
+    position:relative;
+    bottom:-10px;
+  }
+  .content{
+    padding:1rem;
+    text-align:center;
+  }
+  .content .emoji{
+    font-size:4rem;
+    margin-bottom:0.75rem;
+  }
+  .benefits{
+    text-align:left;
+    margin-top:1rem;
+    font-size:0.9rem;
+  }
+  .benefits li{
+    position:relative;
+    padding-left:24px;
+    margin-bottom:0.4rem;
+  }
+  .benefits li::before{
+    content:"❇";
+    position:absolute;
+    left:0;
+    top:0;
+  }
+  .nutrition{
+    font-size:0.8rem;
+    margin-top:1.2rem;
+    background:#e3eae1;
+    padding:0.6rem 0.8rem;
+    border-radius:4px;
+    display:inline-block;
+  }
+  .nutrition dl{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+  }
+  .nutrition dt,.nutrition dd{
+    width:48%;
+    margin:0;
+  }
+  .footer{
+    background:#c5d2b9;
+    color:#2c5d29;
+    text-align:center;
+    font-size:0.8rem;
+    padding:0.5rem 1rem;
+    margin-top:1rem;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="header"><span>01</span> 吃蘋果的好處</div>
+    <div class="tear"></div>
+    <div class="content">
+      <div class="emoji">🍎</div>
+      <ul class="benefits">
+        <li>豐富的維生素 C，促進免疫力。</li>
+        <li>天然抗氧化物，延緩肌膚衰老。</li>
+        <li>膳食纖維，維持腸道健康。</li>
+        <li>低熱量，適合保持理想體重。</li>
+        <li>含鉀，有助於血壓控制。</li>
+      </ul>
+      <div class="nutrition">
+        <dl>
+          <dt>卡路里:</dt><dd>52 kcal</dd>
+          <dt>膳食纖維:</dt><dd>2.4 g</dd>
+          <dt>維生素 C:</dt><dd>4.6 mg</dd>
+          <dt>鉀:</dt><dd>107 mg</dd>
+          <dt>纖維:</dt><dd>2.4 g</dd>
+          <dt>糖份:</dt><dd>10.4 g</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="footer">—— 來自「果園筆記」</div>
+  </div>
+</body>
+</html>
