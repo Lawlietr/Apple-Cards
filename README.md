@@ -8,7 +8,7 @@
 apple-cards/
 ├── README.md              ← 你現在讀的檔案
 ├── AGENTS.md              ← 任務規格書（給 agent 看的提示詞與規範）
-├── Google/
+├── Gemma/
 │   ├── Gemma4-12B/
 │   └── HauhauCS-Gemma-4-26B-A4B/
 ├── OpenAI/
@@ -19,6 +19,9 @@ apple-cards/
 │   ├── Qwen3.6-35B-think/
 │   │   ├── index.html     ← 模型產出
 │   │   └── notes.md       ← 測試環境與觀察
+│   └── Qwen3.8-27B/
+│       ├── xhigh.html     ← 同一模型的多組測試變體
+│       └── medium.html
 ├── LiquidAI/
 │   └── LFM2.5-2.6B/
 │       └── apple-benefits-card.html
@@ -36,12 +39,13 @@ apple-cards/
 
 | 模型家族 | 具體變體 | 檔案 |
 |---------|---------|------|
-| Google | Gemma4-12B | `Google/Gemma4-12B/index.html` |
-| Google | HauhauCS-Gemma-4-26B-A4B | `Google/HauhauCS-Gemma-4-26B-A4B/index.html` |
+| Gemma | Gemma4-12B | `Gemma/Gemma4-12B/index.html` |
+| Gemma | HauhauCS-Gemma-4-26B-A4B | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
 | OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
 | Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
 | Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |
+| Qwen | Qwen3.8-27B | `Qwen/Qwen3.8-27B/xhigh.html`、`Qwen/Qwen3.8-27B/medium.html` |
 | LiquidAI | LFM2.5-2.6B | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
 
 ## 提示詞規範

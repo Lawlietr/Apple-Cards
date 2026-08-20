@@ -15,26 +15,28 @@
 ## 產出規範
 
 1. 將 `index.html` 放入 `{模型家族}/{具體變體}/` 資料夾
-   - 模型家族：按模型來源分類，如 `qwen`、`llama`、`mistral`、`gemma`
-   - 具體變體：完整模型名稱，如 `qwen3.6-35B-think`
+   - 模型家族：按模型來源分類（首字母大寫），如 `Qwen`、`Gemma`、`OpenAI`、`LiquidAI`
+   - 具體變體：完整模型名稱，如 `Qwen3.6-35B-think`
 2. 不要修改其他模型的檔案
 3. 不要修改 `README.md`、`AGENTS.md`
 
 ## 支援的模型格式
 
-- 資料夾內 `index.html`（Qwen、Google、OpenAI 等）
+- 資料夾內 `index.html`（Gemma、OpenAI、Qwen 等）
 - 資料夾內 `apple-benefits-card.html`（LiquidAI 等）
+- 資料夾內多個變體檔案（同一模型多組測試，如 `Qwen3.8-27B` 的 `xhigh.html`、`medium.html`）
 
 ## 測試模型清單
 
 | 模型家族 | 具體變體 | 檔案名稱 |
 |---------|---------|---------|
-| Google | Gemma4-12B | `index.html` |
-| Google | HauhauCS-Gemma-4-26B-A4B | `index.html` |
+| Gemma | Gemma4-12B | `index.html` |
+| Gemma | HauhauCS-Gemma-4-26B-A4B | `index.html` |
 | OpenAI | GPT-OSS-20B | `index.html` |
 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `index.html` |
 | Qwen | Qwen-3.5-9B | `index.html` |
 | Qwen | Qwen3.6-35B-think | `index.html` |
+| Qwen | Qwen3.8-27B | `xhigh.html`、`medium.html`（同一模型的多組測試變體） |
 | LiquidAI | LFM2.5-2.6B | `apple-benefits-card.html` |
 
 ## 評估標準

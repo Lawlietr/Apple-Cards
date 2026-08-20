@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>果園筆記 № 01 — 蘋果</title>
+<style>
+  :root {
+    --paper: #fdf9f0;
+    --paper-edge: #f3ecdd;
+    --ink: #4a4238;
+    --ink-soft: #8a7f6f;
+    --red: #d9534f;
+    --green: #6b8e4e;
+    --line: #d9cfc0;
+    --hole: #cfc4b2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 32px 16px;
+    background:
+      radial-gradient(1200px 600px at 20% 0%, #e8e2d2 0%, transparent 60%),
+      linear-gradient(135deg, #d8d2c0, #c9c2ad);
+    font-family: "Noto Serif TC", "PMingLiU", "Songti TC", Georgia, serif;
+    color: var(--ink);
+  }
+
+  /* ── 筆記本頁身 ─────────────────────────── */
+  .card {
+    position: relative;
+    width: min(430px, 100%);
+    background: var(--paper);
+    background-image:
+      repeating-linear-gradient(
+        transparent 0 31px,
+        var(--line) 31px 32px
+      );
+    border-radius: 4px 10px 10px 4px;
+    box-shadow:
+      0 1px 2px rgba(74, 66, 56, .12),
+      0 12px 28px rgba(74, 66, 56, .22),
+      0 24px 48px rgba(74, 66, 56, .12);
+    transform: rotate(-.4deg);
+    padding: 0 30px 28px 64px;
+    overflow: hidden;
+  }
+
+  /* 左側打孔（活頁筆記風） */
+  .card::before,
+  .card::after {
+    content: "";
+    position: absolute;
+    left: 26px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #efe9db, #b7ac97);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.28);
+  }
+  .card::before { top: 120px; }
+  .card::after  { top: calc(100% - 160px); }
+
+  /* 左側紅欄線（筆記本風） */
+  .card .margin-line {
+    position: absolute;
+    top: 0; bottom: 0; left: 58px;
+    width: 2px;
+    background: rgba(217, 83, 79, .35);
+  }
+
+  /* ── 頁首：編號 + 標題 ───────────────────── */
+  header {
+    padding-top: 34px;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .no {
+    font-size: 15px;
+    letter-spacing: .18em;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .no b {
+    color: var(--red);
+    font-size: 19px;
+    letter-spacing: .08em;
+  }
+  h1 {
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: .12em;
+  }
+  h1 small {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .3em;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  /* ── 撕線 ────────────────────────────── */
+  .tear {
+    position: relative;
+    margin: 22px -30px 22px -64px;   /* 橫向拉滿 */
+    height: 14px;
+    background:
+      linear-gradient(var(--paper), var(--paper)) center / 100% 1px no-repeat;
+  }
+  .tear::before,
+  .tear::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 8px;
+    background:
+      radial-gradient(circle at 50% 0%, var(--paper) 0 3px, transparent 3.5px);
+    background-size: 14px 8px;
+  }
+  .tear::before { transform: translateY(-4px); }
+  .tear::after  { transform: translateY(-2px) scaleY(-1); opacity: .55; }
+  .tear-line {
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    border-top: 2px dashed rgba(138, 127, 111, .5);
+  }
+
+  /* ── 蘋果圖示 ─────────────────────────── */
+  .apple {
+    font-size: 84px;
+    line-height: 1;
+    display: block;
+    text-align: center;
+    margin: 6px 0 18px;
+    filter: drop-shadow(0 8px 10px rgba(217, 83, 79, .25));
+    animation: bob 4s ease-in-out infinite;
+    cursor: pointer;
+    user-select: none;
+  }
+  .apple:active { animation: none; transform: scale(.9) rotate(-8deg); }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-6px) rotate(2deg); }
+  }
+
+  /* ── 好處清單（互動式） ─────────────────── */
+  .benefits { list-style: none; display: grid; gap: 10px; }
+  .benefits li {
+    position: relative;
+    background: rgba(255, 255, 255, .55);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--green);
+    border-radius: 6px;
+    padding: 10px 14px 10px 44px;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .benefits li:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 12px rgba(74, 66, 56, .14);
+    border-left-color: var(--red);
+  }
+  .benefits .icon {
+    position: absolute;
+    left: 13px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  .benefits b { display: block; font-size: 15px; margin-bottom: 2px; }
+  .benefits span { font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ── 營養小區塊 ────────────────────────── */
+  .nutri {
+    margin-top: 22px;
+    background:
+      linear-gradient(rgba(107, 142, 78, .07), rgba(107, 142, 78, .07)),
+      repeating-linear-gradient(transparent 0 22px, rgba(107,142,78,.18) 22px 23px);
+    border: 1px solid rgba(107, 142, 78, .4);
+    border-radius: 8px;
+    padding: 14px 16px 12px;
+  }
+  .nutri h2 {
+    font-size: 13px;
+    letter-spacing: .25em;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .nutri h2::before { content: "🌿 "; letter-spacing: 0; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    text-align: center;
+  }
+  .stats div b {
+    display: block;
+    font-size: 17px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats div small { font-size: 11px; color: var(--ink-soft); }
+
+  /* ── 卡片底部 ──────────────────────────── */
+  footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--ink-soft);
+  }
+  footer .stamp {
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    padding: 3px 8px;
+    transform: rotate(-2deg);
+    opacity: .7;
+  }
+</style>
+</head>
+<body>
+
+  <article class="card">
+    <div class="margin-line" aria-hidden="true"></div>
+
+    <!-- 頁首 -->
+    <header>
+      <span class="no">果園筆記 № <b>01</b></span>
+      <h1>蘋果<small>MALUS DOMESTICA</small></h1>
+    </header>
+
+    <!-- 撕線 -->
+    <div class="tear" aria-hidden="true"><span class="tear-line"></span></div>
+
+    <!-- 蘋果 -->
+    <span class="apple" title="點我一下">🍎</span>
+
+    <!-- 好處 -->
+    <ul class="benefits">
+      <li>
+        <span class="icon">❤️</span>
+        <b>護心</b>
+        <span>富含槲皮素與可溶性纖維，有助降低壞膽固醇。</span>
+      </li>
+      <li>
+        <span class="icon">🧠</span>
+        <b>養腦</b>
+        <span>果多酚抗氧化，研究顯示有助延缓認知退化。</span>
+      </li>
+      <li>
+        <span class="icon">🔥</span>
+        <b>控熱量</b>
+        <span>水分高、熱量低，飽足感強，是理想的輕食。</span>
+      </li>
+      <li>
+        <span class="icon">🦷</span>
+        <b>助代謝</b>
+        <span>果膠促進腸道蠕動，每天一顆腸胃更順暢。</span>
+      </li>
+    </ul>
+
+    <!-- 營養數據 -->
+    <section class="nutri">
+      <h2>每 100g 營養數據</h2>
+      <div class="stats">
+        <div><b>52</b><small>千卡</small></div>
+        <div><b>2.4g</b><small>膳食纖維</small></div>
+        <div><b>10.4g</b><small>碳水化合物</small></div>
+        <div><b>0g</b><small>脂肪</small></div>
+      </div>
+    </section>
+
+    <!-- 卡片底部 -->
+    <footer>
+      <span>ORCHARD NOTES · 每日一果</span>
+      <span class="stamp">FRESH PICKED</span>
+    </footer>
+  </article>
+
+</body>
+</html>
