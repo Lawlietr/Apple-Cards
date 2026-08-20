@@ -24,7 +24,7 @@
 
 - 資料夾內 `index.html`（Gemma、OpenAI、Qwen 等）
 - 資料夾內 `apple-benefits-card.html`（LiquidAI 等）
-- 資料夾內多個變體檔案（同一模型多組測試，如 `Qwen3.8-27B` 的 `xhigh.html`、`medium.html`）
+- 資料夾內多個 reasoning effort 變體檔案（同一模型不同思考強度，檔名為 effort 等級，如 `Qwen3.8-27B` 的 `xhigh.html`、`medium.html`）
 
 ## 測試模型清單
 
@@ -36,7 +36,7 @@
 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `index.html` |
 | Qwen | Qwen-3.5-9B | `index.html` |
 | Qwen | Qwen3.6-35B-think | `index.html` |
-| Qwen | Qwen3.8-27B | `xhigh.html`、`medium.html`（同一模型的多組測試變體） |
+| Qwen | Qwen3.8-27B | `xhigh.html`（reasoning effort: xhigh）、`medium.html`（reasoning effort: medium），同一模型不同思考強度各一組 |
 | LiquidAI | LFM2.5-2.6B | `apple-benefits-card.html` |
 
 ## 評估標準

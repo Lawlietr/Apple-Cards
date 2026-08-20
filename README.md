@@ -19,9 +19,9 @@ apple-cards/
 │   ├── Qwen3.6-35B-think/
 │   │   ├── index.html     ← 模型產出
 │   │   └── notes.md       ← 測試環境與觀察
-│   └── Qwen3.8-27B/
-│       ├── xhigh.html     ← 同一模型的多組測試變體
-│       └── medium.html
+│   └── Qwen3.8-27B/       ← 同一模型不同 reasoning effort
+│       ├── xhigh.html     ← effort: xhigh
+│       └── medium.html    ← effort: medium
 ├── LiquidAI/
 │   └── LFM2.5-2.6B/
 │       └── apple-benefits-card.html
@@ -45,7 +45,8 @@ apple-cards/
 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
 | Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
 | Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |
-| Qwen | Qwen3.8-27B | `Qwen/Qwen3.8-27B/xhigh.html`、`Qwen/Qwen3.8-27B/medium.html` |
+| Qwen | Qwen3.8-27B（reasoning effort: xhigh） | `Qwen/Qwen3.8-27B/xhigh.html` |
+| Qwen | Qwen3.8-27B（reasoning effort: medium） | `Qwen/Qwen3.8-27B/medium.html` |
 | LiquidAI | LFM2.5-2.6B | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
 
 ## 提示詞規範
