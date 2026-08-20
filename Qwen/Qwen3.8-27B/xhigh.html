@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>果園筆記 № 01 · 蘋果</title>
+<style>
+  :root{
+    --paper:#fbf8ef;
+    --ink:#41392e;
+    --faded:#948a77;
+    --rule:#e7e0cd;
+    --red:#c0392b;
+    --leaf:#5f7d4c;
+    --tape:rgba(255,220,130,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;
+    display:grid;place-items:center;
+    padding:44px 16px;
+    background:
+      radial-gradient(1100px 520px at 15% -10%, #eae2cf 0%, transparent 60%),
+      radial-gradient(900px 500px at 110% 115%, #d8cdb4 0%, transparent 55%),
+      #efe8d8;
+    font-family:"Kaiti SC","KaiTi","BiauKai","DFKai-SB","Noto Serif TC","Songti TC",serif;
+    color:var(--ink);
+  }
+
+  /* ── 撕式卡片 ─────────────────────────── */
+  .frame{position:relative;filter:drop-shadow(0 16px 22px rgba(70,55,30,.28))}
+  .tape{
+    position:absolute;top:-13px;left:50%;z-index:2;
+    width:132px;height:28px;
+    transform:translateX(-50%) rotate(-2deg);
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.22) 0 8px, transparent 8px 16px),
+      var(--tape);
+    clip-path:polygon(1% 8%,99% 0,100% 84%,0 100%);
+    box-shadow:inset 0 1px 2px rgba(255,255,255,.4);
+  }
+  .card{
+    width:min(430px,92vw);
+    position:relative;
+    transform:rotate(-.4deg);
+    padding:28px 26px 20px 66px;
+    background:
+      repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px),
+      linear-gradient(var(--paper),var(--paper));
+    /* 撕紙上緣 */
+    clip-path:polygon(
+      0 1.6%, 2.5% .4%, 5.5% 1.8%, 9% .3%, 12.5% 1.5%, 16% .5%, 19.5% 2%, 23% .4%,
+      27% 1.7%, 31% .6%, 35% 1.9%, 39% .3%, 43% 1.6%, 47% .5%, 51% 2.1%, 55% .4%,
+      59% 1.5%, 63% .6%, 67% 1.9%, 71% .3%, 75% 1.7%, 79% .5%, 83% 2%, 87% .4%,
+      91% 1.6%, 94.5% .5%, 100% 1.8%, 100% 100%, 0 100%
+    );
+  }
+  /* 左邊紅色欄線 + 打孔 */
+  .card::before{
+    content:"";position:absolute;top:0;bottom:0;left:48px;
+    width:2px;background:rgba(192,57,43,.16);
+  }
+  .hole{
+    position:absolute;left:24px;width:14px;height:14px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #efe8d8 55%, #d5c9ad 100%);
+    box-shadow:inset 0 1px 3px rgba(0,0,0,.28);
+  }
+  .hole:nth-child(1){top:26%}
+  .hole:nth-child(2){top:70%}
+
+  /* ── 卡片頂部 ─────────────────────────── */
+  header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .kicker{
+    display:inline-block;font-size:11px;letter-spacing:4px;
+    color:var(--faded);border:1.5px solid var(--faded);
+    border-radius:999px;padding:3px 12px;margin-bottom:10px;
+  }
+  h1{font-size:36px;letter-spacing:2px;line-height:1.1}
+  h1 small{font-size:13px;color:var(--faded);font-style:italic;letter-spacing:1px}
+  .sub{margin-top:8px;font-size:13px;color:var(--faded)}
+  .stamp{
+    flex:none;width:60px;height:60px;border:2.5px solid var(--red);border-radius:50%;
+    display:grid;place-content:center;text-align:center;
+    color:var(--red);transform:rotate(8deg);
+    font-size:10px;letter-spacing:2px;line-height:1.5;
+    opacity:.85;mix-blend-mode:multiply;
+  }
+  .stamp b{font-size:17px;letter-spacing:1px}
+
+  /* ── 撕線 ────────────────────────────── */
+  .tear{
+    display:flex;align-items:center;gap:10px;
+    margin:20px 0 18px;color:var(--faded);
+    font-size:10px;letter-spacing:3px;
+  }
+  .tear .dash{flex:1;border-top:2px dashed #b8ad93}
+  .tear .scissor{color:var(--red);font-size:15px;transform:rotate(-12deg)}
+
+  /* ── 正文：蘋果 ───────────────────────── */
+  .apple{
+    font-size:104px;line-height:1;user-select:none;cursor:pointer;
+    display:inline-block;
+    filter:drop-shadow(0 12px 10px rgba(140,40,30,.28));
+    transition:transform .25s ease;
+  }
+  .apple:hover{transform:rotate(-8deg) scale(1.06)}
+  .apple.bounce{animation:bounce .6s ease}
+  @keyframes bounce{
+    0%{transform:scale(1)}
+    30%{transform:scale(1.18) rotate(-10deg)}
+    55%{transform:scale(.94) rotate(6deg)}
+    80%{transform:scale(1.05) rotate(-3deg)}
+    100%{transform:scale(1)}
+  }
+
+  /* ── 好處清單（可點選勾選）────────────── */
+  .sec{
+    margin:22px 0 10px;font-size:18px;letter-spacing:2px;
+    display:flex;align-items:baseline;gap:10px;
+  }
+  .sec::before{content:"🍃";font-size:14px}
+  .sec em{font-size:10px;font-style:normal;color:var(--faded);letter-spacing:2px}
+  .pros{list-style:none}
+  .pros li{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:9px 10px;border-radius:8px;cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .pros li:hover{
+    transform:translateX(5px);
+    background:linear-gradient(104deg, transparent .5%, rgba(255,222,89,.3) 4%, rgba(255,222,89,.3) 96%, transparent 99.5%);
+  }
+  .dot{
+    flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;
+    border:2px dashed var(--leaf);position:relative;
+    display:grid;place-content:center;
+    transition:background .18s, border .18s;
+  }
+  .dot::after{content:"✓";font-size:12px;color:#fff;opacity:0;transition:opacity .18s}
+  .pros li strong{display:block;font-size:15px;letter-spacing:1px}
+  .pros li span{display:block;font-size:12.5px;color:var(--faded);margin-top:2px}
+  .pros li.done{transform:rotate(-.4deg)}
+  .pros li.done .dot{background:var(--leaf);border-style:solid}
+  .pros li.done .dot::after{opacity:1}
+  .pros li.done strong,
+  .pros li.done span{
+    color:var(--faded);
+    text-decoration:line-through 2px rgba(192,57,43,.5);
+  }
+  .hint{margin-top:8px;font-size:11.5px;color:var(--faded)}
+
+  /* ── 營養快報 ─────────────────────────── */
+  .nutri{
+    margin-top:20px;padding:14px 14px 10px;
+    border:1.5px dashed rgba(95,125,76,.45);border-radius:10px;
+    background:rgba(95,125,76,.06);
+  }
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .stat{
+    background:#fffdf6;border:1px dashed #cfc6ac;border-radius:8px;
+    padding:9px 6px;text-align:center;
+    transition:transform .18s ease;
+  }
+  .stat:nth-child(odd){transform:rotate(-1.2deg)}
+  .stat:nth-child(even){transform:rotate(1.2deg)}
+  .stat:hover{transform:rotate(0) scale(1.06)}
+  .stat b{display:block;font-size:19px;color:var(--red);letter-spacing:.5px}
+  .stat span{font-size:11px;color:var(--faded);letter-spacing:1px}
+
+  /* ── 卡片底部 ─────────────────────────── */
+  footer{
+    margin-top:22px;padding-top:12px;
+    border-top:2px dashed #cfc6ac;
+    display:flex;justify-content:space-between;gap:8px;
+    font-size:11px;color:var(--faded);letter-spacing:2px;
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+  <div class="frame">
+    <i class="tape" aria-hidden="true"></i>
+    <article class="card">
+      <i class="hole" aria-hidden="true"></i>
+      <i class="hole" aria-hidden="true"></i>
+
+      <!-- 卡片頂部：編號 + 標題 -->
+      <header>
+        <div>
+          <span class="kicker">ORCHARD NOTES · 果園筆記</span>
+          <h1>蘋果 <small>Malus domestica</small></h1>
+          <p class="sub">園方小語：一口脆響，是秋天最準時的報到。</p>
+        </div>
+        <div class="stamp" aria-label="編號 01">
+          <div>FRUIT<br>FILE</div>
+          <b>№ 01</b>
+        </div>
+      </header>
+
+      <!-- 撕線 -->
+      <div class="tear" role="separator" aria-hidden="true">
+        <span class="scissor">✂</span>
+        <span class="dash"></span>
+        <span>TEAR HERE · 沿此撕下</span>
+        <span class="dash"></span>
+        <span class="scissor">✂</span>
+      </div>
+
+      <!-- 正文：大蘋果（點我有動效） -->
+      <div style="text-align:center">
+        <span class="apple" id="apple" title="點我一下" role="img" aria-label="蘋果">🍎</span>
+      </div>
+
+      <!-- 好處清單 -->
+      <h2 class="sec">為什麼要吃蘋果 <em>WHY APPLES</em></h2>
+      <ul class="pros" id="pros">
+        <li><span class="dot" aria-hidden="true"></span><div><strong>腸道的好幫手</strong><span>膳食纖維促進蠕動，消化更順暢</span></div></li>
+        <li><span class="dot" aria-hidden="true"></span><div><strong>心血管的保護色</strong><span>多酚與槲皮素抗氧化、助穩定血壓</span></div></li>
+        <li><span class="dot" aria-hidden="true"></span><div><strong>解渴不負擔</strong><span>高水分、低熱量，下午飢餓的第一選擇</span></div></li>
+        <li><span class="dot" aria-hidden="true"></span><div><strong>天然甜味系</strong><span>果糖替代加工糖，滿足甜感少負擔</span></div></li>
+        <li><span class="dot" aria-hidden="true"></span><div><strong>脆爽咀嚼感</strong><span>咬起來很「有感」，減少亂吃零食的衝動</span></div></li>
+      </ul>
+      <p class="hint">✎ 點一下，勾選今天做到的好處</p>
+
+      <!-- 營養快報 -->
+      <section class="nutri">
+        <h2 class="sec" style="margin-top:0">營養快報 <em>每顆（約 182 g）</em></h2>
+        <div class="grid">
+          <div class="stat"><b>95</b><span>kcal 熱量</span></div>
+          <div class="stat"><b>4.4 g</b><span>膳食纖維</span></div>
+          <div class="stat"><b>19 g</b><span>天然糖</span></div>
+          <div class="stat"><b>8.3 mg</b><span>維生素 C</span></div>
+          <div class="stat"><b>86 %</b><span>水分</span></div>
+          <div class="stat"><b>0.5 g</b><span>蛋白質</span></div>
+        </div>
+      </section>
+
+      <!-- 卡片底部 -->
+      <footer>
+        <span>🍃 果園筆記</span>
+        <span>2026 夏收 · 手摘</span>
+        <span>NO. 01 / 04</span>
+      </footer>
+    </article>
+  </div>
+
+<script>
+  // 蘋果點一下會彈一下
+  const apple = document.getElementById('apple');
+  apple.addEventListener('click', () => {
+    apple.classList.remove('bounce');
+    void apple.offsetWidth; // 重啟動畫
+    apple.classList.add('bounce');
+  });
+
+  // 好處清單：點選勾選／取消
+  document.querySelectorAll('#pros li').forEach(li => {
+    li.addEventListener('click', () => li.classList.toggle('done'));
+  });
+</script>
+</body>
+</html>
