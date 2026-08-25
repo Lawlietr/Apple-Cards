@@ -21,6 +21,7 @@
 
 const MODELS = [
   { family: "Gemma",  variant: "Gemma4-12B",               file: "Gemma/Gemma4-12B/index.html" },
+  { family: "Gemini", variant: "Gemini-3.7_Flash",         file: "Gemini/Gemini-3.7_Flash/index.html" },
   { family: "Gemma",  variant: "HauhauCS-Gemma-4-26B-A4B", file: "Gemma/HauhauCS-Gemma-4-26B-A4B/index.html" },
   { family: "OpenAI", variant: "GPT-OSS-20B",              file: "OpenAI/GPT-OSS-20B/index.html" },
   { family: "OpenAI", variant: "GPT-5.6_sol", effort: "xhigh", file: "OpenAI/GPT-5.6_sol/xhigh.html" },

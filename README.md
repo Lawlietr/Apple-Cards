@@ -21,6 +21,8 @@ apple-cards/
 ├── Gemma/
 │   ├── Gemma4-12B/
 │   └── HauhauCS-Gemma-4-26B-A4B/
+├── Gemini/
+│   └── Gemini-3.7_Flash/
 ├── OpenAI/
 │   ├── GPT-OSS-20B/
 │   └── GPT-5.6_sol/
@@ -55,6 +57,7 @@ apple-cards/
 |---------|---------|------|
 | Gemma | Gemma4-12B | `Gemma/Gemma4-12B/index.html` |
 | Gemma | HauhauCS-Gemma-4-26B-A4B | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
+| Gemini | Gemini-3.7_Flash | `Gemini/Gemini-3.7_Flash/index.html` |
 | OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
 | OpenAI | GPT-5.6_sol（reasoning effort: xhigh） | `OpenAI/GPT-5.6_sol/xhigh.html` |
 | OpenAI | GPT-5.6_sol（reasoning effort: high） | `OpenAI/GPT-5.6_sol/high.html` |

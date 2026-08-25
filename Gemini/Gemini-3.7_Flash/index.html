@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>果園筆記 #01 - 每日一蘋果</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        hand: ['"Caveat"', 'cursive']
+                    },
+                    colors: {
+                        paper: '#fcf8f2',
+                        paperDark: '#f4ece1',
+                        appleRed: '#e63946',
+                        appleDarkRed: '#b71c1c',
+                        leafGreen: '#4a7c59',
+                        ink: '#2b2d42'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #e5dec9;
+            background-image: 
+                radial-gradient(#c2b59b 1px, transparent 0),
+                radial-gradient(#c2b59b 1px, #e5dec9 50%);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
+        /* 筆記本網格線 */
+        .grid-pattern {
+            background-image: linear-gradient(to right, rgba(200, 180, 150, 0.15) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(200, 180, 150, 0.15) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* 撕線效果 */
+        .tear-line {
+            background-image: linear-gradient(to right, #94a3b8 50%, rgba(255, 255, 255, 0) 0%);
+            background-position: bottom;
+            background-size: 12px 2px;
+            background-repeat: repeat-x;
+        }
+
+        /* 手繪章戳印記 */
+        .stamp-badge {
+            transform: rotate(-12deg);
+            border: 2px dashed #b71c1c;
+            color: #b71c1c;
+            border-radius: 50%;
+            mask-image: radial-gradient(circle, rgba(0,0,0,0.8) 70%, rgba(0,0,0,0.4) 100%);
+        }
+
+        /* 和紙膠帶效果 */
+        .washi-tape {
+            background: rgba(235, 220, 190, 0.7);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            backdrop-filter: blur(1px);
+        }
+
+        /* 卡片翻轉 hover 動畫 */
+        .benefit-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .benefit-card:hover {
+            transform: translateY(-3px) rotate(0.5deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4 flex items-center justify-center font-serif text-ink">
+
+    <!-- 主要筆記卡片包覆區 -->
+    <div class="relative w-full max-w-xl mx-auto">
+        
+        <!-- 頂部和紙膠帶裝飾 -->
+        <div class="washi-tape absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 z-20 border-l border-r border-amber-300/50 rotate-[-1deg] flex items-center justify-center">
+            <span class="text-xs font-hand text-amber-800 opacity-60 tracking-widest">ORCHARD LOG</span>
+        </div>
+
+        <!-- 筆記卡片主體 -->
+        <div class="bg-paper rounded-2xl shadow-2xl overflow-hidden border border-amber-200/80 relative grid-pattern">
+            
+            <!-- 1. 頂部頁籤與編號 -->
+            <div class="pt-8 px-8 pb-4 flex justify-between items-end border-b border-amber-100">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-appleRed text-white text-xs px-2 py-0.5 rounded font-mono font-bold tracking-wider">NO. 01</span>
+                        <span class="text-xs text-amber-800 font-medium tracking-widest">採集檔案 / FRUIT LOG</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-black text-amber-950 tracking-wide">果園筆記：每日一蘋果</h1>
+                </div>
+                <div class="text-right hidden sm:block">
+                    <span class="font-hand text-xl text-amber-800 block -mb-1">Organic & Fresh</span>
+                    <span class="text-xs text-gray-400 font-mono">EST. 2026</span>
+                </div>
+            </div>
+
+            <!-- 2. 撕線 (Perforated Line) -->
+            <div class="relative py-3 flex items-center justify-center my-1">
+                <!-- 左半圓缺口 -->
+                <div class="absolute -left-3 w-6 h-6 bg-[#e5dec9] rounded-full border-r border-amber-300/40 shadow-inner"></div>
+                <!-- 虛線 -->
+                <div class="w-full h-0.5 tear-line mx-4 opacity-70"></div>
+                <!-- 撕開提示標籤 -->
+                <span class="absolute bg-paper px-3 text-[10px] text-gray-400 font-mono tracking-widest uppercase">PULL TO TEAR</span>
+                <!-- 右半圓缺口 -->
+                <div class="absolute -right-3 w-6 h-6 bg-[#e5dec9] rounded-full border-l border-amber-300/40 shadow-inner"></div>
+            </div>
+
+            <!-- 3. 正文：大尺寸蘋果圖片與簡介 -->
+            <div class="px-6 sm:px-8 pt-2 pb-6">
+                <div class="flex flex-col sm:flex-row items-center gap-6 bg-paperDark/60 p-5 rounded-2xl border border-amber-200/50 relative overflow-hidden">
+                    
+                    <!-- 背景浮水印印章 -->
+                    <div class="stamp-badge absolute -right-2 -bottom-2 w-24 h-24 flex items-center justify-center font-bold text-xs tracking-tighter pointer-events-none opacity-25">
+                        <div class="text-center">
+                            <span>100% HEALTHY</span><br>
+                            <span class="text-[9px]">NATURAL</span>
+                        </div>
+                    </div>
+
+                    <!-- 蘋果向量繪圖/圖示 -->
+                    <div class="relative group cursor-pointer flex-shrink-0" id="appleIllustration">
+                        <div class="w-32 h-32 sm:w-36 sm:h-36 relative flex items-center justify-center drop-shadow-xl transition-transform duration-300 group-hover:scale-105">
+                            <!-- SVG Apple -->
+                            <svg viewBox="0 0 200 200" class="w-full h-full">
+                                <!-- 葉子 -->
+                                <path d="M100 50 C 110 20, 140 25, 135 45 C 120 55, 105 45, 100 50 Z" fill="#4a7c59" />
+                                <path d="M105 45 C 115 35, 125 35, 128 42" stroke="#2d4d37" stroke-width="2" fill="none" />
+                                <!-- 果蒂 -->
+                                <path d="M100 50 Q 95 35 90 25" stroke="#5c3d2e" stroke-width="5" stroke-linecap="round" fill="none" />
+                                <!-- 蘋果主體 -->
+                                <path d="M100 60 
+                                         C 120 50, 165 55, 175 90 
+                                         C 185 130, 155 175, 105 180 
+                                         C 100 181, 100 181, 95 180 
+                                         C 45 175, 15 130, 25 90 
+                                         C 35 55, 80 50, 100 60 Z" 
+                                      fill="url(#appleGradient)" />
+                                <!-- 光澤反光 -->
+                                <ellipse cx="60" cy="95" rx="12" ry="25" fill="white" opacity="0.25" transform="rotate(-25 60 95)" />
+                                <ellipse cx="145" cy="115" rx="6" ry="18" fill="#ff9999" opacity="0.3" transform="rotate(15 145 115)" />
+                                <!-- 漸層定義 -->
+                                <defs>
+                                    <radialGradient id="appleGradient" cx="35%" cy="35%" r="65%">
+                                        <stop offset="0%" stop-color="#ff5252" />
+                                        <stop offset="60%" stop-color="#e63946" />
+                                        <stop offset="100%" stop-color="#800f2f" />
+                                    </radialGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="text-[11px] text-center block text-amber-800/60 font-hand mt-1">點擊蘋果發送讚美 ✨</span>
+                    </div>
+
+                    <!-- 筆記引言 -->
+                    <div class="flex-1 text-center sm:text-left">
+                        <h2 class="text-lg font-bold text-amber-900 mb-1">「一日一蘋果，醫師遠離我」</h2>
+                        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed font-sans">
+                            西方古諺並非空穴來風。這顆看似樸實無華的紅色果實，封存了豐富的植物生化素與高活性膳食纖維，是果園裡最天然的日常保健護衛。
+                        </p>
+                        <div class="mt-3 flex flex-wrap gap-1.5 justify-center sm:justify-start">
+                            <span class="text-[11px] bg-red-100 text-red-800 px-2 py-0.5 rounded-full font-medium">#水溶性纖維</span>
+                            <span class="text-[11px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-medium">#抗氧化</span>
+                            <span class="text-[11px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-medium">#低GI首選</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 吃蘋果的好處 (互動卡片組) -->
+                <div class="mt-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-appleRed" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                            核心健康益處 (Benefits)
+                        </h3>
+                        <span class="text-xs text-gray-400 font-sans">點擊卡片查看細節</span>
+                    </div>
+
+                    <!-- 互動益處網格 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="benefitContainer">
+                        
+                        <!-- 益處 1 -->
+                        <div class="benefit-card bg-white p-3.5 rounded-xl border border-amber-200/70 shadow-sm cursor-pointer hover:border-appleRed/50 transition-all" onclick="toggleBenefit(this)">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-red-50 text-appleRed flex items-center justify-center font-bold text-lg shrink-0">
+                                    🥑
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="font-bold text-sm text-gray-800">腸道好菌推手</h4>
+                                        <span class="text-xs text-amber-700 font-hand text-[14px]">01</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1 leading-normal font-sans">富含「果膠」(Pectin)，能滋養腸道益生菌，維持消化道順暢健康。</p>
+                                    <div class="detail-content hidden mt-2 pt-2 border-t border-dashed border-gray-100 text-[11px] text-gray-600 font-sans bg-amber-50/50 p-2 rounded">
+                                        💡 <strong>筆記Tips：</strong> 連皮一起吃能攝取最多果膠與不可溶性纖維！
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 益處 2 -->
+                        <div class="benefit-card bg-white p-3.5 rounded-xl border border-amber-200/70 shadow-sm cursor-pointer hover:border-appleRed/50 transition-all" onclick="toggleBenefit(this)">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-red-50 text-appleRed flex items-center justify-center font-bold text-lg shrink-0">
+                                    ❤️
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="font-bold text-sm text-gray-800">心血管守護星</h4>
+                                        <span class="text-xs text-amber-700 font-hand text-[14px]">02</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1 leading-normal font-sans">含有多酚與類黃酮，有助於降低壞膽固醇，保持血管彈性。</p>
+                                    <div class="detail-content hidden mt-2 pt-2 border-t border-dashed border-gray-100 text-[11px] text-gray-600 font-sans bg-amber-50/50 p-2 rounded">
+                                        💡 <strong>筆記Tips：</strong> 蘋果中的槲皮素（Quercetin）能抗發炎、輔助維持心臟健康。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 益處 3 -->
+                        <div class="benefit-card bg-white p-3.5 rounded-xl border border-amber-200/70 shadow-sm cursor-pointer hover:border-appleRed/50 transition-all" onclick="toggleBenefit(this)">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-red-50 text-appleRed flex items-center justify-center font-bold text-lg shrink-0">
+                                    ⚖️
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="font-bold text-sm text-gray-800">體重管理好幫手</h4>
+                                        <span class="text-xs text-amber-700 font-hand text-[14px]">03</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1 leading-normal font-sans">水分含量高（約86%），熱量低且具高飽足感，適合運動後或點心。</p>
+                                    <div class="detail-content hidden mt-2 pt-2 border-t border-dashed border-gray-100 text-[11px] text-gray-600 font-sans bg-amber-50/50 p-2 rounded">
+                                        💡 <strong>筆記Tips：</strong> 餐前30分鐘吃一顆蘋果，能有效減少正餐暴飲暴食的機率。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 益處 4 -->
+                        <div class="benefit-card bg-white p-3.5 rounded-xl border border-amber-200/70 shadow-sm cursor-pointer hover:border-appleRed/50 transition-all" onclick="toggleBenefit(this)">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-red-50 text-appleRed flex items-center justify-center font-bold text-lg shrink-0">
+                                    🛡️
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="font-bold text-sm text-gray-800">穩定血糖波幅</h4>
+                                        <span class="text-xs text-amber-700 font-hand text-[14px]">04</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1 leading-normal font-sans">升糖指數 GI 值僅約 36，屬於低 GI 水果，不易引起血糖劇烈波動。</p>
+                                    <div class="detail-content hidden mt-2 pt-2 border-t border-dashed border-gray-100 text-[11px] text-gray-600 font-sans bg-amber-50/50 p-2 rounded">
+                                        💡 <strong>筆記Tips：</strong> 天然果糖搭配膳食纖維，吸收平緩，是糖尿病友可適量食用的水果。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 5. 營養數據區塊 (Nutrition Facts Block) -->
+                <div class="mt-6 bg-[#f7f2e7] p-4 sm:p-5 rounded-xl border-2 border-dashed border-amber-300 relative">
+                    <!-- 區塊小標題 -->
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-appleRed"></span>
+                            <h3 class="text-sm font-bold text-amber-950 font-sans uppercase tracking-wider">營養成分分析 (Nutrition Facts)</h3>
+                        </div>
+                        
+                        <!-- 份量調整互動 -->
+                        <div class="flex items-center gap-1.5 bg-white px-2 py-1 rounded-lg border border-amber-200 text-xs font-sans">
+                            <span class="text-gray-500">食用份量:</span>
+                            <select id="portionSelect" class="bg-transparent font-bold text-appleRed outline-none cursor-pointer" onchange="updateNutrition()">
+                                <option value="0.5">半顆 (約90g)</option>
+                                <option value="1" selected>1 顆 (約182g)</option>
+                                <option value="2">2 顆 (約364g)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 數據卡片 -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center font-sans">
+                        <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200/50">
+                            <span class="text-[11px] text-gray-400 block mb-0.5">熱量 / Calories</span>
+                            <span class="text-lg font-black text-amber-900" id="nutrCal">95</span>
+                            <span class="text-[10px] text-gray-500 font-normal"> kcal</span>
+                        </div>
+                        <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200/50">
+                            <span class="text-[11px] text-gray-400 block mb-0.5">膳食纖維 / Fiber</span>
+                            <span class="text-lg font-black text-amber-900" id="nutrFiber">4.4</span>
+                            <span class="text-[10px] text-gray-500 font-normal"> g</span>
+                        </div>
+                        <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200/50">
+                            <span class="text-[11px] text-gray-400 block mb-0.5">維生素 C / Vit C</span>
+                            <span class="text-lg font-black text-amber-900" id="nutrVitC">8.4</span>
+                            <span class="text-[10px] text-gray-500 font-normal"> mg</span>
+                        </div>
+                        <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200/50">
+                            <span class="text-[11px] text-gray-400 block mb-0.5">鉀離子 / Potassium</span>
+                            <span class="text-lg font-black text-amber-900" id="nutrPot">195</span>
+                            <span class="text-[10px] text-gray-500 font-normal"> mg</span>
+                        </div>
+                    </div>
+
+                    <!-- 備註說明 -->
+                    <p class="text-[11px] text-amber-800/70 mt-2.5 text-right font-hand">
+                        * 數值參考自 USDA 衛生福利部食品營養成分資料庫
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- 6. 卡片底部 (Footer) -->
+            <div class="bg-amber-100/60 px-6 py-4 border-t border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-amber-900/80 font-sans">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                    <span>採集紀錄：當季鮮採紅富士 (Fuji)</span>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <button onclick="shareCard()" class="hover:text-appleRed transition-colors flex items-center gap-1 font-medium">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        分享卡片
+                    </button>
+                    <span class="text-gray-300">|</span>
+                    <span class="font-hand text-base text-amber-800">Orchard Note #01 End</span>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- 卡片陰影裝飾底襯 -->
+        <div class="absolute -bottom-2 right-4 left-4 h-6 bg-black/10 blur-md rounded-full -z-10"></div>
+    </div>
+
+    <!-- 訊息提示 Toast 通知的容器 -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-amber-900 text-white text-xs px-4 py-2.5 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center gap-2">
+        <span id="toastMsg">已複製卡片連結！</span>
+    </div>
+
+    <script>
+        // 基礎營養數據 (以 1 顆蘋果 182g 計算)
+        const baseNutrition = {
+            cal: 95,
+            fiber: 4.4,
+            vitC: 8.4,
+            potassium: 195
+        };
+
+        // 展開/收合好處細節
+        function toggleBenefit(card) {
+            const detail = card.querySelector('.detail-content');
+            const isHidden = detail.classList.contains('hidden');
+            
+            // 關閉其他已展開的
+            document.querySelectorAll('.detail-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.benefit-card').forEach(el => el.classList.remove('ring-2', 'ring-appleRed/30'));
+
+            if (isHidden) {
+                detail.classList.remove('hidden');
+                card.classList.add('ring-2', 'ring-appleRed/30');
+            }
+        }
+
+        // 動態計算營養數據
+        function updateNutrition() {
+            const multiplier = parseFloat(document.getElementById('portionSelect').value);
+            
+            document.getElementById('nutrCal').innerText = Math.round(baseNutrition.cal * multiplier);
+            document.getElementById('nutrFiber').innerText = (baseNutrition.fiber * multiplier).toFixed(1);
+            document.getElementById('nutrVitC').innerText = (baseNutrition.vitC * multiplier).toFixed(1);
+            document.getElementById('nutrPot').innerText = Math.round(baseNutrition.potassium * multiplier);
+        }
+
+        // 點擊蘋果互動
+        const apple = document.getElementById('appleIllustration');
+        const praises = ["🍎 一天一蘋果，健康跟我走！", "✨ 皮含有豐富多酚，洗淨連皮吃最好！", "😋 水甜多汁，補充滿滿膳食纖維！", "❤️ 心臟與腸道都會感謝你！"];
+        let praiseIdx = 0;
+
+        apple.addEventListener('click', () => {
+            showToast(praises[praiseIdx]);
+            praiseIdx = (praiseIdx + 1) % praises.length;
+            
+            // 輕微彈跳動畫
+            apple.classList.add('scale-110');
+            setTimeout(() => apple.classList.remove('scale-110'), 200);
+        });
+
+        // 分享卡片功能 (使用 execCommand 替代以符合環境限制)
+        function shareCard() {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            
+            showToast("📋 筆記連結已複製到剪貼簿！");
+        }
+
+        // Toast 彈窗
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = msg;
+            toast.classList.remove('opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

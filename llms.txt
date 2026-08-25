@@ -12,7 +12,7 @@
 
 - Theme: light/dark toggle, persisted in `localStorage`, falls back to `prefers-color-scheme`.
 - Language: English (`en`) and Traditional Chinese (`zh-TW`); selector is data-driven from `i18n.js` (add a dictionary + one `SUPPORTED_LANGS` entry to add more).
-- Filtering: cards can be filtered by model family (Gemma, OpenAI, Qwen, LiquidAI).
+- Filtering: cards can be filtered by model family (Gemma, Gemini, OpenAI, Qwen, LiquidAI).
 - Progressive loading: only the first few cards are rendered on load; a "Load more" button reveals the rest (keeps iframe previews lazy).
 - Comparison: tick the checkbox on up to 4 cards and open them side by side.
 - Navigation: a left sidebar groups models by family; clicking a family name expands its models, and clicking a model jumps to that card (quick navigation only — it does not filter or compare).
@@ -36,6 +36,7 @@
 |---|---|---|---|
 | Gemma | Gemma4-12B | — | `Gemma/Gemma4-12B/index.html` |
 | Gemma | HauhauCS-Gemma-4-26B-A4B | — | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
+| Gemini | Gemini-3.7_Flash | — | `Gemini/Gemini-3.7_Flash/index.html` |
 | OpenAI | GPT-OSS-20B | — | `OpenAI/GPT-OSS-20B/index.html` |
 | OpenAI | GPT-5.6_sol | xhigh | `OpenAI/GPT-5.6_sol/xhigh.html` |
 | OpenAI | GPT-5.6_sol | high | `OpenAI/GPT-5.6_sol/high.html` |
