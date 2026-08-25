@@ -1,7 +1,7 @@
 /* ============================================================
  * i18n — all UI strings live here.
  *
- * HOW TO ADD A LANGUAGE (e.g. Traditional Chinese):
+ * HOW TO ADD A LANGUAGE (e.g. Japanese):
  *   1. Add a new object to I18N below, using the SAME keys as `en`.
  *      (A few missing keys are OK — `en` is used as fallback.)
  *   2. Add one entry to SUPPORTED_LANGS below:
@@ -41,37 +41,38 @@ const I18N = {
       "All cards are self-contained HTML with inline CSS — no external dependencies.",
   },
 
-  /*
-   * Example — uncomment and translate to activate Traditional Chinese:
-   *
-   * "zh-TW": {
-   *   "site.title": "蘋果卡片",
-   *   "meta.description": "同一道提示詞，多個模型……",
-   *   "hero.title": "一道提示詞，多個模型。",
-   *   "hero.tagline": "……",
-   *   "prompt.summary": "提示詞",
-   *   "prompt.text": "寫一個簡單的 HTML 卡片，介紹吃蘋果的好處。……",
-   *   "filter.all": "全部",
-   *   "label.effort": "思考強度",
-   *   "card.open": "全尺寸開啟",
-   *   "compare.label": "選入比較",
-   *   "compare.selected": "已選 %n 張",
-   *   "compare.viewing": "正在比較 %n 張",
-   *   "compare.button": "並排比較",
-   *   "compare.clear": "清除",
-   *   "compare.back": "← 返回全部卡片",
-   *   "loadmore.button": "載入更多（剩 %n 張）",
-   *   "theme.light": "切換到淺色模式",
-   *   "theme.dark": "切換到深色模式",
-   *   "lang.label": "語言",
-   *   "footer.note": "所有卡片都是自包含的 HTML，無外部依賴。",
-   * },
-   */
+  "zh-TW": {
+    "site.title": "Apple Cards",
+    "meta.description":
+      "同一道關於吃蘋果好處的提示詞，由多個模型各自回答——每份答案都是一張「果園筆記」風格的 HTML 卡片。",
+    "hero.title": "一道提示詞，多個模型。",
+    "hero.tagline":
+      "下方每個模型收到的都是完全相同的任務：做一張介紹吃蘋果好處的 HTML 卡片，設計得像從果園筆記本上撕下來的一頁。每個預覽就是卡片本身，原樣嵌入。",
+    "prompt.summary": "提示詞",
+    "prompt.text":
+      "寫一個簡單的 HTML 卡片，介紹吃蘋果的好處。將程式碼貼在這裡。設計風格為「果園筆記」，看起來像筆記本的一頁或撕式卡片。卡片頂部印有果園筆記編號（蘋果為 01）及標題，接著是一道撕線，然後是正文。正文包含一個大尺寸的蘋果圖片（或表情符號），以及以互動且時尚格式列出的好處。接著是一個小區塊，顯示蘋果的營養數據，例如卡路里、膳食纖維等，最後是卡片底部。",
+    "filter.all": "全部",
+    "label.effort": "思考強度",
+    "card.open": "全尺寸開啟",
+    "compare.label": "選入比較",
+    "compare.selected": "已選 %n 張",
+    "compare.viewing": "正在比較 %n 張",
+    "compare.button": "並排比較",
+    "compare.clear": "清除",
+    "compare.back": "← 返回全部卡片",
+    "loadmore.button": "載入更多（剩 %n 張）",
+    "theme.light": "切換到淺色模式",
+    "theme.dark": "切換到深色模式",
+    "lang.label": "語言",
+    "footer.note": "所有卡片都是自包含的 HTML 與內嵌 CSS，無外部依賴。",
+  },
 };
 
 const SUPPORTED_LANGS = [
   { code: "en", label: "English", match: ["en"] },
-  // { code: "zh-TW", label: "繁體中文", match: ["zh-tw", "zh-hant"] },
+  // Any `zh*` browser code maps to Traditional Chinese
+  // (the site's primary audience writes in zh-TW).
+  { code: "zh-TW", label: "繁體中文", match: ["zh"] },
 ];
 
 const DEFAULT_LANG = SUPPORTED_LANGS[0].code;

@@ -80,7 +80,7 @@ apple-cards/
 
 ## 新增語言
 
-網站介面文字集中在 `i18n.js`，要加繁體中文（或其他語言）：
+目前支援：英文（`en`）、繁體中文（`zh-TW`）。介面文字集中在 `i18n.js`，要再加語言：
 
 1. `I18N` 中新增該語言物件（key 照 `en` 抄，缺漏的 key 會自動 fallback 到英文）
 2. `SUPPORTED_LANGS` 加一列（`code`、`label`、`match`）

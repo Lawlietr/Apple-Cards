@@ -11,7 +11,7 @@
 ## Features of the site (not of the cards)
 
 - Theme: light/dark toggle, persisted in `localStorage`, falls back to `prefers-color-scheme`.
-- Language: currently English (`en`); selector is data-driven from `i18n.js` (add a dictionary + one `SUPPORTED_LANGS` entry to add e.g. `zh-TW`).
+- Language: English (`en`) and Traditional Chinese (`zh-TW`); selector is data-driven from `i18n.js` (add a dictionary + one `SUPPORTED_LANGS` entry to add more).
 - Filtering: cards can be filtered by model family (Gemma, OpenAI, Qwen, LiquidAI).
 - Progressive loading: only the first few cards are rendered on load; a "Load more" button reveals the rest (keeps iframe previews lazy).
 - Comparison: tick the checkbox on up to 4 cards and open them side by side.
