@@ -21,7 +21,7 @@
    - 具體變體：完整模型名稱，如 `Qwen3.6-35B-think`
 2. 不要修改其他模型的檔案
 3. 不要修改 `README.md`、`AGENTS.md`
-4. 新增模型卡片後，须在 repo 根目錄 `models.js` 末尾註冊一列（`{ family, variant, effort?, file }`），網站首頁才會顯示其預覽；`README.md` 與 `llms.txt` 的模型表格請一併同步
+4. 新增模型卡片後，须在 repo 根目錄 `models.js` 末尾註冊一列（`{ family, variant, effort?, file, notes? }`），網站首頁才會顯示其預覽（篩選按鈕與左側導航欄會自動產生，無需手動維護）；`notes` 為可選的短標籤陣列，寫執行環境/量化/上下文等備註（如 `["llama.cpp", "Q4_K_M", "ctx 4096"]`）；`README.md` 與 `llms.txt` 的模型表格請一併同步
 
 ## 支援的模型格式
 
