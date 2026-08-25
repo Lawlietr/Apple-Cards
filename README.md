@@ -3,6 +3,7 @@
 > 同一份提示詞，不同模型，比較產出品質。
 >
 > 儲存庫根目錄同時託管公開預覽網站（GitHub Pages）：所有模型的卡片可以在同一頁面並排比較。
+> 線上網址：<https://lawlietr.github.io/Apple-Cards/>
 
 ## 專案結構
 
@@ -65,7 +66,7 @@ apple-cards/
 
 1. 將此 repo push 到 GitHub
 2. Settings → Pages → Source 選 **Deploy from a branch**，branch 選 `main`、folder 選 `/ (root)`
-3. 上線網址：`https://<帳號>.github.io/<repo名稱>/`
+3. 上線網址：`https://lawlietr.github.io/Apple-Cards/`
 
 網站功能：日夜主題（手動切換後瀏覽器會記住）、左側模型導航欄（按廠商分組、點開下拉模型、點擊快速跳到對應卡片；僅供導覽，不做篩選與比較）、按模型家族篩選、以 iframe 即時預覽每張卡片、初次只載入前幾張（按「Load more」載入其餘）、勾選 2–4 張卡片可並排比較。
 
