@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>果園筆記 01｜吃蘋果的好處</title>
+
+  <style>
+    :root {
+      --apple-red: #c93b37;
+      --leaf-green: #537a47;
+      --deep-green: #294833;
+      --paper: #fffdf2;
+      --ink: #27352c;
+      --muted: #6f786f;
+      --line: rgba(79, 112, 90, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 32px 18px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      font-family: ui-rounded, "Microsoft JhengHei", "PingFang TC",
+        system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 18%, #dce8c8 0 7%, transparent 7.5%),
+        radial-gradient(circle at 88% 82%, #ecd9bd 0 9%, transparent 9.5%),
+        linear-gradient(135deg, #eff3df, #dce8cf);
+    }
+
+    .note-card {
+      position: relative;
+      width: min(760px, 100%);
+      overflow: hidden;
+      border: 1px solid #d6d0b8;
+      border-radius: 8px 8px 20px 8px;
+      background:
+        linear-gradient(
+          90deg,
+          transparent 0 62px,
+          rgba(201, 59, 55, 0.22) 62px 64px,
+          transparent 64px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          var(--paper) 0 31px,
+          var(--line) 31px 32px
+        );
+      box-shadow:
+        0 26px 60px rgba(49, 67, 45, 0.2),
+        8px 10px 0 rgba(255, 255, 255, 0.5);
+      transform: rotate(-0.35deg);
+    }
+
+    .note-card::before {
+      content: "";
+      position: absolute;
+      inset: 15px auto 15px 12px;
+      width: 22px;
+      background:
+        radial-gradient(
+          circle,
+          #b9b59f 0 4px,
+          #eee9d7 4.5px 7px,
+          transparent 7.5px
+        )
+        center top / 22px 42px repeat-y;
+      opacity: 0.9;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 30px 36px 22px 84px;
+    }
+
+    .note-number {
+      flex: 0 0 auto;
+      min-width: 82px;
+      padding: 10px;
+      color: white;
+      text-align: center;
+      background: var(--apple-red);
+      border-radius: 50% 47% 53% 45%;
+      box-shadow: 3px 4px 0 #8d2926;
+      transform: rotate(-3deg);
+    }
+
+    .note-number small {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.67rem;
+      letter-spacing: 0.14em;
+    }
+
+    .note-number strong {
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .title-group p {
+      margin: 0 0 5px;
+      color: var(--leaf-green);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--deep-green);
+      font-family: "DFKai-SB", "BiauKai", "Microsoft JhengHei", cursive;
+      font-size: clamp(1.65rem, 5vw, 2.6rem);
+      line-height: 1.2;
+    }
+
+    .tear-line {
+      position: relative;
+      height: 18px;
+      margin: 0 28px 20px 64px;
+      border-top: 2px dashed #9c9a87;
+    }
+
+    .tear-line::before {
+      content: "✂";
+      position: absolute;
+      top: -15px;
+      left: -4px;
+      padding-right: 8px;
+      color: #777566;
+      background: var(--paper);
+      font-size: 1.2rem;
+    }
+
+    .card-body {
+      padding: 0 36px 26px 84px;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .apple-visual {
+      position: relative;
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(83, 122, 71, 0.25);
+      border-radius: 48% 52% 45% 55%;
+      background: rgba(255, 249, 220, 0.78);
+      box-shadow: inset 0 0 0 8px rgba(255, 255, 255, 0.45);
+      transform: rotate(2deg);
+    }
+
+    .apple-visual span {
+      display: block;
+      font-size: clamp(6rem, 18vw, 8rem);
+      filter: drop-shadow(0 12px 8px rgba(92, 55, 34, 0.17));
+      transition: transform 250ms ease;
+    }
+
+    .apple-visual:hover span {
+      transform: translateY(-6px) rotate(-5deg) scale(1.06);
+    }
+
+    .apple-visual small {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      padding: 5px 9px;
+      color: white;
+      font-weight: 800;
+      background: var(--leaf-green);
+      border-radius: 999px;
+      transform: rotate(-4deg);
+    }
+
+    .benefits h2,
+    .nutrition h2 {
+      margin: 0 0 12px;
+      color: var(--deep-green);
+      font-size: 1.05rem;
+    }
+
+    .benefit-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .benefit {
+      padding: 12px 10px;
+      border: 1px solid rgba(83, 122, 71, 0.22);
+      border-radius: 13px;
+      color: var(--deep-green);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 4px 0 rgba(83, 122, 71, 0.13);
+      cursor: pointer;
+      transition:
+        transform 160ms ease,
+        color 160ms ease,
+        background 160ms ease,
+        box-shadow 160ms ease;
+    }
+
+    .benefit:hover,
+    .benefit:focus-visible {
+      outline: none;
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 rgba(83, 122, 71, 0.16);
+    }
+
+    .benefit.is-active {
+      color: white;
+      background: var(--leaf-green);
+      box-shadow: 0 4px 0 var(--deep-green);
+    }
+
+    .benefit-note {
+      min-height: 66px;
+      margin: 16px 0 0;
+      padding: 13px 15px;
+      color: #4e584f;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      background: rgba(255, 244, 197, 0.7);
+      border-left: 4px solid #e4aa36;
+      border-radius: 4px 12px 12px 4px;
+    }
+
+    .nutrition {
+      margin-top: 28px;
+      padding: 20px;
+      border: 1px solid rgba(41, 72, 51, 0.19);
+      border-radius: 16px;
+      background: rgba(238, 243, 221, 0.8);
+    }
+
+    .nutrition-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .nutrition-heading h2 {
+      margin: 0;
+    }
+
+    .nutrition-heading small {
+      color: var(--muted);
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    .nutrition-item {
+      padding: 13px 8px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.72);
+      border-radius: 12px;
+    }
+
+    .nutrition-item strong {
+      display: block;
+      color: var(--apple-red);
+      font-size: 1.35rem;
+    }
+
+    .nutrition-item span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 17px 36px 22px 84px;
+      color: #6b7169;
+      font-size: 0.78rem;
+      border-top: 1px solid rgba(41, 72, 51, 0.12);
+      background: rgba(255, 253, 242, 0.65);
+    }
+
+    .card-footer strong {
+      color: var(--apple-red);
+    }
+
+    @media (max-width: 620px) {
+      .card-header,
+      .card-body,
+      .card-footer {
+        padding-left: 62px;
+        padding-right: 22px;
+      }
+
+      .tear-line {
+        margin-left: 48px;
+      }
+
+      .card-header {
+        align-items: flex-start;
+      }
+
+      .note-number {
+        min-width: 66px;
+      }
+
+      .intro {
+        grid-template-columns: 1fr;
+      }
+
+      .apple-visual {
+        min-height: 165px;
+      }
+
+      .nutrition-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card-footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 410px) {
+      .benefit-list {
+        grid-template-columns: 1fr;
+      }
+
+      .card-header {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <article class="note-card">
+    <header class="card-header">
+      <div class="note-number" aria-label="果園筆記編號 01">
+        <small>NOTE</small>
+        <strong>01</strong>
+      </div>
+
+      <div class="title-group">
+        <p>Orchard Notes · 果園筆記</p>
+        <h1>每天吃顆蘋果吧！</h1>
+      </div>
+    </header>
+
+    <div class="tear-line" aria-hidden="true"></div>
+
+    <main class="card-body">
+      <section class="intro">
+        <div class="apple-visual" aria-label="紅蘋果">
+          <span role="img" aria-hidden="true">🍎</span>
+          <small>今日鮮摘</small>
+        </div>
+
+        <div class="benefits">
+          <h2>點選標籤，翻開蘋果的小祕密</h2>
+
+          <div class="benefit-list">
+            <button
+              class="benefit is-active"
+              type="button"
+              aria-pressed="true"
+              data-note="蘋果含有膳食纖維，搭配均衡飲食，有助於增加飽足感並維持消化道機能。"
+            >
+              🌿 纖維與飽足感
+            </button>
+
+            <button
+              class="benefit"
+              type="button"
+              aria-pressed="false"
+              data-note="蘋果可提供少量維生素 C，也是日常攝取多樣化蔬果的輕鬆選擇。"
+            >
+              ✨ 維生素 C
+            </button>
+
+            <button
+              class="benefit"
+              type="button"
+              aria-pressed="false"
+              data-note="蘋果皮含有多種天然植化素。清洗乾淨後連皮食用，可以保留更多營養。"
+            >
+              🎨 天然植化素
+            </button>
+
+            <button
+              class="benefit"
+              type="button"
+              aria-pressed="false"
+              data-note="蘋果含有豐富水分，攜帶方便，很適合當作忙碌午後的清爽點心。"
+            >
+              💧 水分與便利性
+            </button>
+          </div>
+
+          <p class="benefit-note" id="benefitNote" aria-live="polite">
+            蘋果含有膳食纖維，搭配均衡飲食，有助於增加飽足感並維持消化道機能。
+          </p>
+        </div>
+      </section>
+
+      <section class="nutrition">
+        <div class="nutrition-heading">
+          <h2>一顆蘋果的營養速記</h2>
+          <small>以中型蘋果約 182g 估算</small>
+        </div>
+
+        <div class="nutrition-grid">
+          <div class="nutrition-item">
+            <strong>95</strong>
+            <span>大卡</span>
+          </div>
+
+          <div class="nutrition-item">
+            <strong>4.4g</strong>
+            <span>膳食纖維</span>
+          </div>
+
+          <div class="nutrition-item">
+            <strong>8.4mg</strong>
+            <span>維生素 C</span>
+          </div>
+
+          <div class="nutrition-item">
+            <strong>195mg</strong>
+            <span>鉀</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card-footer">
+      <span><strong>果園小提醒：</strong>清洗乾淨後，連皮一起吃。</span>
+      <span>APPLE A DAY · 01</span>
+    </footer>
+  </article>
+
+  <script>
+    const buttons = document.querySelectorAll(".benefit");
+    const benefitNote = document.getElementById("benefitNote");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        buttons.forEach((item) => {
+          item.classList.remove("is-active");
+          item.setAttribute("aria-pressed", "false");
+        });
+
+        button.classList.add("is-active");
+        button.setAttribute("aria-pressed", "true");
+        benefitNote.textContent = button.dataset.note;
+      });
+    });
+  </script>
+</body>
+</html>

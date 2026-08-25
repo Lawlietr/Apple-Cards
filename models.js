@@ -23,6 +23,8 @@ const MODELS = [
   { family: "Gemma",  variant: "Gemma4-12B",               file: "Gemma/Gemma4-12B/index.html" },
   { family: "Gemma",  variant: "HauhauCS-Gemma-4-26B-A4B", file: "Gemma/HauhauCS-Gemma-4-26B-A4B/index.html" },
   { family: "OpenAI", variant: "GPT-OSS-20B",              file: "OpenAI/GPT-OSS-20B/index.html" },
+  { family: "OpenAI", variant: "GPT-5.6_sol", effort: "xhigh", file: "OpenAI/GPT-5.6_sol/xhigh.html" },
+  { family: "OpenAI", variant: "GPT-5.6_sol", effort: "high",  file: "OpenAI/GPT-5.6_sol/high.html" },
   { family: "Qwen",   variant: "Kwaipilot_KAT-Coder-V2.5-Dev", file: "Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html" },
   { family: "Qwen",   variant: "Qwen-3.5-9B",              file: "Qwen/Qwen-3.5-9B/index.html" },
   { family: "Qwen",   variant: "Qwen3.6-35B-think",        file: "Qwen/Qwen3.6-35B-think/index.html" },

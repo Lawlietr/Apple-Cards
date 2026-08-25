@@ -22,7 +22,10 @@ apple-cards/
 │   ├── Gemma4-12B/
 │   └── HauhauCS-Gemma-4-26B-A4B/
 ├── OpenAI/
-│   └── GPT-OSS-20B/
+│   ├── GPT-OSS-20B/
+│   └── GPT-5.6_sol/
+│       ├── xhigh.html       ← effort: xhigh
+│       └── high.html        ← effort: high
 ├── Qwen/
 │   ├── Kwaipilot_KAT-Coder-V2.5-Dev/
 │   ├── Qwen-3.5-9B/
@@ -53,6 +56,8 @@ apple-cards/
 | Gemma | Gemma4-12B | `Gemma/Gemma4-12B/index.html` |
 | Gemma | HauhauCS-Gemma-4-26B-A4B | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
 | OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
+| OpenAI | GPT-5.6_sol（reasoning effort: xhigh） | `OpenAI/GPT-5.6_sol/xhigh.html` |
+| OpenAI | GPT-5.6_sol（reasoning effort: high） | `OpenAI/GPT-5.6_sol/high.html` |
 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
 | Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
 | Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |

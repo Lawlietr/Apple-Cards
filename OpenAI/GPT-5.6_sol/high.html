@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>果園筆記 01｜蘋果</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+      color: #30372b;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, #fff8d8 0 4%, transparent 5%),
+        linear-gradient(135deg, #dce8bd, #f3e8c8);
+    }
+
+    .orchard-card {
+      position: relative;
+      width: min(100%, 460px);
+      overflow: hidden;
+      border: 1px solid #d1c5a4;
+      border-radius: 8px 8px 18px 18px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(106, 139, 91, 0.12) 32px
+        ),
+        #fffdf2;
+      box-shadow: 0 20px 45px rgba(76, 69, 42, 0.22);
+    }
+
+    .orchard-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 42px;
+      width: 1px;
+      background: rgba(209, 91, 78, 0.25);
+    }
+
+    .card-header {
+      position: relative;
+      padding: 28px 30px 22px 66px;
+      background: rgba(255, 250, 226, 0.85);
+    }
+
+    .note-number {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 9px;
+      color: #6b7d45;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .note-number::before {
+      content: "●";
+      color: #d94f45;
+      font-size: 0.65rem;
+    }
+
+    h1 {
+      margin: 0;
+      color: #34452c;
+      font-family: Georgia, "Noto Serif TC", serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: #80765f;
+      font-size: 0.92rem;
+    }
+
+    .tear-line {
+      position: relative;
+      height: 22px;
+      border-top: 2px dashed #b7aa89;
+    }
+
+    .tear-line::before,
+    .tear-line::after {
+      content: "✂";
+      position: absolute;
+      top: -13px;
+      color: #8b8169;
+      background: #fffdf2;
+      font-size: 1rem;
+    }
+
+    .tear-line::before {
+      left: 12px;
+    }
+
+    .tear-line::after {
+      right: 12px;
+      transform: scaleX(-1);
+    }
+
+    .card-content {
+      position: relative;
+      padding: 4px 30px 30px 66px;
+    }
+
+    .apple-hero {
+      display: grid;
+      place-items: center;
+      width: 145px;
+      height: 145px;
+      margin: 0 auto 22px;
+      border: 1px dashed #d2bfa2;
+      border-radius: 50%;
+      background: #fff7da;
+      font-size: 6.4rem;
+      line-height: 1;
+      filter: drop-shadow(0 10px 8px rgba(120, 46, 34, 0.16));
+      transition: transform 250ms ease, background 250ms ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .apple-hero:hover {
+      transform: translateY(-5px) rotate(-5deg) scale(1.05);
+      background: #ffefbb;
+    }
+
+    .benefits {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 24px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 15px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: rgba(237, 241, 216, 0.78);
+      transition: transform 180ms ease, border-color 180ms ease,
+        background 180ms ease;
+      cursor: default;
+    }
+
+    .benefit:hover {
+      transform: translateX(7px);
+      border-color: #a9bb7d;
+      background: #f4f6dc;
+    }
+
+    .benefit-icon {
+      display: grid;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: #6f8a4b;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .benefit strong {
+      display: block;
+      margin-bottom: 2px;
+      color: #3f5132;
+      font-size: 0.96rem;
+    }
+
+    .benefit span {
+      color: #77705e;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .nutrition {
+      padding: 17px;
+      border: 1px solid #dfd2ae;
+      border-radius: 14px;
+      background: rgba(255, 249, 224, 0.9);
+    }
+
+    .nutrition h2 {
+      margin: 0 0 13px;
+      color: #8e3f36;
+      font-size: 0.83rem;
+      letter-spacing: 0.1em;
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .nutrition-item {
+      padding: 10px 5px;
+      border-radius: 9px;
+      text-align: center;
+      background: #fffdf4;
+    }
+
+    .nutrition-item b {
+      display: block;
+      color: #c84d43;
+      font-family: Georgia, serif;
+      font-size: 1.15rem;
+    }
+
+    .nutrition-item small {
+      color: #857c66;
+      font-size: 0.7rem;
+    }
+
+    .card-footer {
+      position: relative;
+      padding: 16px 30px 20px 66px;
+      border-top: 1px solid rgba(186, 174, 139, 0.5);
+      color: #7b745f;
+      background: rgba(238, 232, 202, 0.55);
+      font-size: 0.76rem;
+      font-style: italic;
+    }
+
+    .card-footer::after {
+      content: "新鮮採摘 ✓";
+      position: absolute;
+      right: 25px;
+      bottom: 13px;
+      padding: 5px 8px;
+      border: 2px solid rgba(180, 69, 59, 0.55);
+      border-radius: 4px;
+      color: rgba(180, 69, 59, 0.72);
+      font-style: normal;
+      font-weight: 800;
+      transform: rotate(-5deg);
+    }
+
+    @media (max-width: 420px) {
+      .card-header,
+      .card-content,
+      .card-footer {
+        padding-left: 52px;
+        padding-right: 20px;
+      }
+
+      .orchard-card::before {
+        left: 32px;
+      }
+
+      .nutrition-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-footer::after {
+        position: static;
+        display: inline-block;
+        margin-top: 12px;
+        margin-left: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <article class="orchard-card">
+    <header class="card-header">
+      <div class="note-number">Orchard Note · 01</div>
+      <h1>蘋果</h1>
+      <p class="subtitle">每天一顆，為日常補上一口清脆活力。</p>
+    </header>
+
+    <div class="tear-line" aria-hidden="true"></div>
+
+    <main class="card-content">
+      <div class="apple-hero" title="碰一下這顆蘋果">🍎</div>
+
+      <ul class="benefits">
+        <li class="benefit">
+          <div class="benefit-icon">01</div>
+          <div>
+            <strong>補充膳食纖維</strong>
+            <span>果皮與果肉含有纖維，有助維持消化道機能。</span>
+          </div>
+        </li>
+
+        <li class="benefit">
+          <div class="benefit-icon">02</div>
+          <div>
+            <strong>含天然抗氧化成分</strong>
+            <span>提供多酚等植物營養素，為均衡飲食增添色彩。</span>
+          </div>
+        </li>
+
+        <li class="benefit">
+          <div class="benefit-icon">03</div>
+          <div>
+            <strong>方便又有飽足感</strong>
+            <span>容易攜帶、無須複雜處理，是俐落的點心選擇。</span>
+          </div>
+        </li>
+
+        <li class="benefit">
+          <div class="benefit-icon">04</div>
+          <div>
+            <strong>補充水分與清爽口感</strong>
+            <span>蘋果含有豐富水分，香甜爽脆且適合日常享用。</span>
+          </div>
+        </li>
+      </ul>
+
+      <section class="nutrition">
+        <h2>營養小抄｜每 1 顆中型蘋果約 182g</h2>
+
+        <div class="nutrition-grid">
+          <div class="nutrition-item">
+            <b>95</b>
+            <small>大卡</small>
+          </div>
+
+          <div class="nutrition-item">
+            <b>4.4g</b>
+            <small>膳食纖維</small>
+          </div>
+
+          <div class="nutrition-item">
+            <b>14%</b>
+            <small>每日維生素 C 參考值*</small>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card-footer">
+      果園提醒：洗淨後連皮食用，可以攝取更多膳食纖維。
+    </footer>
+  </article>
+</body>
+</html>
