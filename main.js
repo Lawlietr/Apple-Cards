@@ -24,6 +24,7 @@ const countEl = document.getElementById("compareCount");
 const compareBtn = document.getElementById("compareBtn");
 const compareClear = document.getElementById("compareClear");
 const compareBack = document.getElementById("compareBack");
+const sidebarEl = document.getElementById("sidebar");
 
 /* ---------- storage (safe in private-browsing edge cases) ---------- */
 const store = {
@@ -133,12 +134,80 @@ function renderFilters() {
   families.forEach((f) => filtersEl.appendChild(makeChip(f, f)));
 }
 
+/* ---------- sidebar navigation (quick jump only) ---------- */
+// Sidebar links never filter or change the comparison selection; they only
+// scroll to a card. The anchor id is derived from the card file path.
+function slug(file) {
+  return file.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+function buildSidebar() {
+  sidebarEl.innerHTML = "";
+
+  const title = document.createElement("p");
+  title.className = "sidebar-title";
+  title.textContent = t("nav.models");
+  sidebarEl.appendChild(title);
+
+  const families = [...new Set(MODELS.map((m) => m.family))];
+  families.forEach((f) => {
+    const models = MODELS.filter((m) => m.family === f);
+
+    const det = document.createElement("details");
+    det.className = "nav-family";
+
+    const sum = document.createElement("summary");
+    const name = document.createElement("span");
+    name.textContent = f;
+    const cnt = document.createElement("span");
+    cnt.className = "nav-count";
+    cnt.textContent = models.length;
+    sum.append(name, cnt);
+
+    const ul = document.createElement("ul");
+    models.forEach((m) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = "#card-" + slug(m.file);
+      a.textContent = m.effort ? `${m.variant} (${m.effort})` : m.variant;
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        jumpToCard(m.file);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    det.append(sum, ul);
+    sidebarEl.appendChild(det);
+  });
+}
+
+function jumpToCard(file) {
+  if (state.view === "compare") return;
+  let target = document.getElementById("card-" + slug(file));
+  if (!target) {
+    // Card not in the DOM yet (pagination) or hidden by an active family
+    // filter — widen the grid to include it, then scroll.
+    state.family = "all";
+    const idx = MODELS.findIndex((m) => m.file === file);
+    state.visible = Math.max(INITIAL_BATCH, idx + 1);
+    renderFilters();
+    renderGrid();
+    target = document.getElementById("card-" + slug(file));
+  }
+  if (target) {
+    requestAnimationFrame(() => target.scrollIntoView({ behavior: "smooth", block: "start" }));
+  }
+}
+
 /* ---------- comparison ---------- */
 function renderCompareBar() {
   const n = state.selected.size;
   const comparing = state.view === "compare";
   barEl.hidden = !comparing && n === 0;
   filtersEl.hidden = comparing;
+  sidebarEl.hidden = comparing;
   countEl.textContent = comparing
     ? t("compare.viewing").replace("%n", n)
     : t("compare.selected").replace("%n", n);
@@ -175,6 +244,7 @@ compareBack.addEventListener("click", () => {
 function cardElement(m) {
   const wrap = document.createElement("article");
   wrap.className = "model-card";
+  wrap.id = "card-" + slug(m.file);
 
   const head = document.createElement("div");
   head.className = "model-head";
@@ -276,6 +346,7 @@ function render() {
   buildLangSelect();
   paintTheme(currentTheme());
   renderFilters();
+  buildSidebar();
   renderGrid();
 }
 

@@ -15,9 +15,18 @@
 - Filtering: cards can be filtered by model family (Gemma, OpenAI, Qwen, LiquidAI).
 - Progressive loading: only the first few cards are rendered on load; a "Load more" button reveals the rest (keeps iframe previews lazy).
 - Comparison: tick the checkbox on up to 4 cards and open them side by side.
+- Navigation: a left sidebar groups models by family; clicking a family name expands its models, and clicking a model jumps to that card (quick navigation only — it does not filter or compare).
 - The original prompt is shown on the landing page under "The prompt".
 
 ## The prompt (shared by all models)
+
+**Every model received this prompt in its original Traditional Chinese form. The cards are results produced from the Traditional Chinese prompt — never from a translated version. The English text below is a translation for convenience only.**
+
+### Original prompt (Traditional Chinese, verbatim — what the models received)
+
+> 寫一個簡單的 HTML 卡片，介紹吃蘋果的好處。將程式碼貼在這裡。設計風格為「果園筆記」，看起來像筆記本的一頁或撕式卡片。卡片頂部印有果園筆記編號（蘋果為 01）及標題，接著是一道撕線，然後是正文。正文包含一個大尺寸的蘋果圖片（或表情符號），以及以互動且時尚格式列出的好處。接著是一個小區塊，顯示蘋果的營養數據，例如卡路里、膳食纖維等，最後是卡片底部。
+
+### English translation (for reference only)
 
 > Write a simple HTML card introducing the benefits of eating an apple. The design style is "orchard notebook": it should look like a page from a notebook or a torn-off card. The top of the card prints an orchard-notebook number (apple is 01) and a title, followed by a tear line and the body. The body contains a large apple image (or emoji) and the benefits listed in an interactive, fashionable format. Then a small block shows apple nutrition data such as calories and fiber, and finally the card footer. Single file, inline CSS, no external dependencies, Traditional Chinese.
 
@@ -46,3 +55,4 @@
 
 - The card folders follow the layout `{Family}/{Variant}/<file>.html`; filename varies per model (`index.html`, `apple-benefits-card.html`, or effort-level names like `xhigh.html`).
 - This repo compares model outputs only — the cards are the deliverables being evaluated (visual design, content correctness, interactivity, code quality).
+- All cards are responses to the original Traditional Chinese prompt (see AGENTS.md “語言基線”). Any translated copy in this repo or on the site must state that the cards were produced from the Traditional Chinese prompt.

@@ -24,6 +24,9 @@ const I18N = {
     "prompt.summary": "The prompt",
     "prompt.text":
       "Write a simple HTML card introducing the benefits of eating an apple. The design style is “orchard notebook”: it should look like a page from a notebook or a torn-off card. The top of the card prints an orchard-notebook number (apple is 01) and a title, followed by a tear line and the body. The body contains a large apple image (or emoji) and the benefits listed in an interactive, fashionable format. Then a small block shows apple nutrition data such as calories and fiber, and finally the card footer. Single file, inline CSS, no external dependencies, Traditional Chinese.",
+    "prompt.note":
+      "Note: every model received this prompt in Traditional Chinese — switch the site language to 繁體中文 to read the verbatim original. The text above is an English translation for reference.",
+    "nav.models": "Models",
     "filter.all": "All",
     "label.effort": "effort",
     "card.open": "Open full size",
@@ -51,6 +54,8 @@ const I18N = {
     "prompt.summary": "提示詞",
     "prompt.text":
       "寫一個簡單的 HTML 卡片，介紹吃蘋果的好處。將程式碼貼在這裡。設計風格為「果園筆記」，看起來像筆記本的一頁或撕式卡片。卡片頂部印有果園筆記編號（蘋果為 01）及標題，接著是一道撕線，然後是正文。正文包含一個大尺寸的蘋果圖片（或表情符號），以及以互動且時尚格式列出的好處。接著是一個小區塊，顯示蘋果的營養數據，例如卡路里、膳食纖維等，最後是卡片底部。",
+    "prompt.note": "以上為原始提示詞（繁體中文、逐字呈現）——所有模型收到的就是這段文字本身。",
+    "nav.models": "模型",
     "filter.all": "全部",
     "label.effort": "思考強度",
     "card.open": "全尺寸開啟",
