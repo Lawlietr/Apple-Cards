@@ -1,0 +1,361 @@
+/* ============ Theme tokens ============ */
+:root {
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --text: #20241f;
+  --muted: #5f6a61;
+  --border: #e0e4da;
+  --chip-bg: #edf0e9;
+  --accent: #c9432c;
+  --accent-soft: #f7e3de;
+  --shadow: 0 1px 2px rgb(20 24 20 / 0.04), 0 6px 20px rgb(20 24 20 / 0.05);
+}
+
+[data-theme="dark"] {
+  --bg: #14171a;
+  --surface: #1d2126;
+  --text: #e7ebee;
+  --muted: #97a19a;
+  --border: #2c3339;
+  --chip-bg: #262c32;
+  --accent: #ef7a63;
+  --accent-soft: #3a2722;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+}
+
+/* ============ Base ============ */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* `hidden` must win over the display rules below. */
+[hidden] { display: none !important; }
+
+/* ============ Header ============ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#langSelect {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.theme-toggle {
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.theme-toggle:hover { background: var(--chip-bg); }
+
+/* Show the icon of the mode you would switch TO. */
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* ============ Intro ============ */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.intro { margin-bottom: 1.75rem; }
+
+.intro h1 {
+  font-size: clamp(1.4rem, 1rem + 2vw, 2rem);
+  margin: 0 0 0.5rem;
+}
+
+.intro p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.prompt { margin-top: 0.9rem; max-width: 70ch; }
+
+.prompt summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.prompt p {
+  margin: 0.6rem 0 0;
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* ============ Filters ============ */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.28rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+.chip.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.chip.effort {
+  cursor: default;
+  background: var(--chip-bg);
+}
+
+/* ============ Model grid ============ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+  gap: 1.1rem;
+}
+
+.model-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.model-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.model-head h2 {
+  font-size: 0.98rem;
+  margin: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--muted);
+}
+
+.open-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.open-link:hover { text-decoration: underline; }
+
+.card-frame {
+  width: 100%;
+  height: min(72vh, 760px);
+  border: 0;
+  display: block;
+  background: #ffffff; /* cards are mostly light-themed; avoid a dark flash */
+}
+
+/* ============ Footer ============ */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 1rem 2rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ============ Compare bar ============ */
+.compare-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.compare-count {
+  margin-right: auto;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.btn {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn.ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============ Compare selection ============ */
+.card-check {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: none;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.grid.compare .card-check { display: none; }
+
+/* ============ Note tags (runtime params, quantization, …) ============ */
+.note-chip {
+  font-size: 0.72rem;
+  padding: 0.08rem 0.5rem;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ============ Compare layout ============ */
+.grid.compare .card-frame { height: 64vh; }
+
+@media (max-width: 960px) {
+  .grid.compare { grid-template-columns: 1fr !important; }
+}
+
+/* ============ Load more ============ */
+.grid-foot {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.3rem;
+}
+
+.loadmore {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.45rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.loadmore:hover { border-color: var(--accent); color: var(--accent); }

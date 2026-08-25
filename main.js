@@ -1,0 +1,282 @@
+/* ============================================================
+ * main.js — theme, language, filters, comparison and rendering.
+ * No frameworks, no dependencies.
+ *
+ * Tuning knobs:
+ *   INITIAL_BATCH — cards shown on first load
+ *   LOAD_BATCH    — cards revealed per "Load more" click
+ *   MAX_COMPARE   — max cards in a side-by-side comparison
+ * ============================================================ */
+
+const INITIAL_BATCH = 4;
+const LOAD_BATCH = 4;
+const MAX_COMPARE = 4;
+const MIN_COMPARE = 2;
+
+const root = document.documentElement;
+const themeBtn = document.getElementById("themeToggle");
+const langSelect = document.getElementById("langSelect");
+const filtersEl = document.getElementById("filters");
+const gridEl = document.getElementById("grid");
+const footEl = document.getElementById("gridFoot");
+const barEl = document.getElementById("compareBar");
+const countEl = document.getElementById("compareCount");
+const compareBtn = document.getElementById("compareBtn");
+const compareClear = document.getElementById("compareClear");
+const compareBack = document.getElementById("compareBack");
+
+/* ---------- storage (safe in private-browsing edge cases) ---------- */
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+
+/* ---------- theme ---------- */
+const systemDark = () => matchMedia("(prefers-color-scheme: dark)").matches;
+
+/** Effective theme: manual choice wins; otherwise follow the OS. */
+function currentTheme() {
+  const saved = store.get("theme");
+  if (saved === "light" || saved === "dark") return saved;
+  return systemDark() ? "dark" : "light";
+}
+
+function paintTheme(theme) {
+  root.setAttribute("data-theme", theme);
+  themeBtn.setAttribute(
+    "aria-label",
+    theme === "dark" ? t("theme.light") : t("theme.dark")
+  );
+}
+
+themeBtn.addEventListener("click", () => {
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  store.set("theme", next); // manual choice is remembered for future visits
+  paintTheme(next);
+});
+
+// Keep following the OS until the user makes a manual choice.
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+  if (!store.get("theme")) paintTheme(e.matches ? "dark" : "light");
+});
+
+/* ---------- i18n ---------- */
+function pickLang() {
+  const saved = store.get("lang");
+  if (saved && I18N[saved]) return saved;
+  const nav = (navigator.language || "").toLowerCase();
+  for (const l of SUPPORTED_LANGS) {
+    if (l.match.includes(nav) || (nav && l.match.includes(nav.slice(0, 2)))) {
+      return l.code;
+    }
+  }
+  return DEFAULT_LANG;
+}
+
+const state = {
+  lang: pickLang(),
+  family: "all",
+  visible: INITIAL_BATCH,
+  view: "gallery", // "gallery" | "compare"
+  selected: new Set(), // card file paths selected for comparison
+};
+
+function t(key) {
+  const dict = I18N[state.lang] || {};
+  return dict[key] ?? I18N[DEFAULT_LANG][key] ?? key;
+}
+
+function applyStaticI18n() {
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  root.lang = state.lang;
+}
+
+function buildLangSelect() {
+  langSelect.innerHTML = "";
+  for (const l of SUPPORTED_LANGS) {
+    const opt = document.createElement("option");
+    opt.value = l.code;
+    opt.textContent = l.label;
+    langSelect.appendChild(opt);
+  }
+  langSelect.value = state.lang;
+}
+
+langSelect.addEventListener("change", () => {
+  state.lang = langSelect.value;
+  store.set("lang", state.lang);
+  render();
+});
+
+/* ---------- filters ---------- */
+function renderFilters() {
+  const families = [...new Set(MODELS.map((m) => m.family))];
+  filtersEl.innerHTML = "";
+
+  const makeChip = (key, label) => {
+    const el = document.createElement("button");
+    el.type = "button";
+    el.className = "chip" + (key === state.family ? " active" : "");
+    el.textContent = label;
+    el.addEventListener("click", () => {
+      state.family = key;
+      state.visible = INITIAL_BATCH; // reset pagination per filter
+      renderFilters();
+      renderGrid();
+    });
+    return el;
+  };
+
+  filtersEl.appendChild(makeChip("all", t("filter.all")));
+  families.forEach((f) => filtersEl.appendChild(makeChip(f, f)));
+}
+
+/* ---------- comparison ---------- */
+function renderCompareBar() {
+  const n = state.selected.size;
+  const comparing = state.view === "compare";
+  barEl.hidden = !comparing && n === 0;
+  filtersEl.hidden = comparing;
+  countEl.textContent = comparing
+    ? t("compare.viewing").replace("%n", n)
+    : t("compare.selected").replace("%n", n);
+  compareBtn.hidden = comparing;
+  compareClear.hidden = comparing;
+  compareBack.hidden = !comparing;
+  compareBtn.disabled = n < MIN_COMPARE;
+}
+
+function refreshChecks() {
+  document.querySelectorAll(".card-check").forEach((c) => {
+    c.disabled = !c.checked && state.selected.size >= MAX_COMPARE;
+  });
+}
+
+compareBtn.addEventListener("click", () => {
+  if (state.selected.size < MIN_COMPARE) return;
+  state.view = "compare";
+  renderGrid();
+  barEl.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+compareClear.addEventListener("click", () => {
+  state.selected.clear();
+  renderGrid();
+});
+
+compareBack.addEventListener("click", () => {
+  state.view = "gallery";
+  renderGrid();
+});
+
+/* ---------- card grid ---------- */
+function cardElement(m) {
+  const wrap = document.createElement("article");
+  wrap.className = "model-card";
+
+  const head = document.createElement("div");
+  head.className = "model-head";
+
+  const badge = document.createElement("span");
+  badge.className = "badge";
+  badge.textContent = m.family;
+
+  const name = document.createElement("h2");
+  name.textContent = m.variant;
+
+  head.append(badge, name);
+
+  if (m.effort) {
+    const chip = document.createElement("span");
+    chip.className = "chip effort";
+    chip.textContent = `${t("label.effort")}: ${m.effort}`;
+    head.appendChild(chip);
+  }
+
+  // Optional runtime / quantization tags, e.g. ["llama.cpp", "Q4_K_M", "ctx 4096"]
+  (m.notes || []).forEach((s) => {
+    const chip = document.createElement("span");
+    chip.className = "note-chip";
+    chip.textContent = s;
+    head.appendChild(chip);
+  });
+
+  const check = document.createElement("input");
+  check.type = "checkbox";
+  check.className = "card-check";
+  check.title = t("compare.label");
+  check.checked = state.selected.has(m.file);
+  check.addEventListener("change", () => {
+    if (check.checked) state.selected.add(m.file);
+    else state.selected.delete(m.file);
+    renderCompareBar();
+    refreshChecks();
+  });
+
+  const link = document.createElement("a");
+  link.href = m.file;
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.className = "open-link";
+  link.textContent = `${t("card.open")} ↗`;
+
+  head.append(check, link);
+
+  const frame = document.createElement("iframe");
+  frame.src = m.file;
+  frame.loading = "lazy";
+  frame.className = "card-frame";
+  frame.title = `${m.variant}${m.effort ? ` (${m.effort})` : ""} — ${t("site.title")}`;
+
+  wrap.append(head, frame);
+  return wrap;
+}
+
+function renderGrid() {
+  gridEl.innerHTML = "";
+  footEl.innerHTML = "";
+
+  const comparing = state.view === "compare";
+  gridEl.classList.toggle("compare", comparing);
+
+  let items;
+  if (comparing) {
+    items = MODELS.filter((m) => state.selected.has(m.file));
+    gridEl.style.gridTemplateColumns = "repeat(2, minmax(0, 1fr))";
+  } else {
+    gridEl.style.gridTemplateColumns = "";
+    const pool = MODELS.filter(
+      (m) => state.family === "all" || m.family === state.family
+    );
+    items = pool.slice(0, state.visible);
+    const remaining = pool.length - state.visible;
+    if (remaining > 0) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "loadmore";
+      btn.textContent = t("loadmore.button").replace("%n", remaining);
+      btn.addEventListener("click", () => {
+        state.visible += LOAD_BATCH;
+        renderGrid();
+      });
+      footEl.appendChild(btn);
+    }
+  }
+
+  items.forEach((m) => gridEl.appendChild(cardElement(m)));
+  renderCompareBar();
+  refreshChecks();
+}
+
+/* ---------- boot ---------- */
+function render() {
+  applyStaticI18n();
+  buildLangSelect();
+  paintTheme(currentTheme());
+  renderFilters();
+  renderGrid();
+}
+
+render();
