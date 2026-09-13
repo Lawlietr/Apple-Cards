@@ -428,6 +428,16 @@ body {
   white-space: nowrap;
 }
 
+.note-chip.link-chip {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.note-chip.link-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* ============ Compare layout ============ */
 .grid.compare .card-frame { height: 64vh; }
 

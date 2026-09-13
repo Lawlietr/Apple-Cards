@@ -32,4 +32,9 @@ const MODELS = [
   { family: "Qwen",   variant: "Qwen3.8-27B", effort: "xhigh",  file: "Qwen/Qwen3.8-27B/xhigh.html" },
   { family: "Qwen",   variant: "Qwen3.8-27B", effort: "medium", file: "Qwen/Qwen3.8-27B/medium.html" },
   { family: "LiquidAI", variant: "LFM2.5-2.6B",            file: "LiquidAI/LFM2.5-2.6B/apple-benefits-card.html" },
+  { family: "Qwen",     variant: "Cyber-Tiel-Coder",       file: "Qwen/Cyber-Tiel-Coder/index.html",
+    // Structured metadata is rendered on the homepage (see main.js). Cards stay pure output.
+    params: { quant: "Q8_0", temperature: 0.6, min_p: 0.0, top_p: 0.95, top_k: 20, architecture: "MoE 35B/A3B" },
+    links:  { chatTemplate: "https://huggingface.co/peculiar-ragdoll/Qwen-Sharp-Chat-Templates",
+              model: "https://huggingface.co/peculiar-ragdoll/Cyber-Tiel-Coder-35B-A3B-GGUF" } },
 ];

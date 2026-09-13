@@ -29,6 +29,8 @@ apple-cards/
 │       ├── xhigh.html       ← effort: xhigh
 │       └── high.html        ← effort: high
 ├── Qwen/
+│   ├── Cyber-Tiel-Coder/
+│   │   └── index.html     ← 模型產出
 │   ├── Kwaipilot_KAT-Coder-V2.5-Dev/
 │   ├── Qwen-3.5-9B/
 │   ├── Qwen3.6-35B-think/
@@ -61,6 +63,7 @@ apple-cards/
 | OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
 | OpenAI | GPT-5.6_sol（reasoning effort: xhigh） | `OpenAI/GPT-5.6_sol/xhigh.html` |
 | OpenAI | GPT-5.6_sol（reasoning effort: high） | `OpenAI/GPT-5.6_sol/high.html` |
+| Qwen | Cyber-Tiel-Coder | `Qwen/Cyber-Tiel-Coder/index.html` |
 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
 | Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
 | Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |

@@ -273,6 +273,30 @@ function cardElement(m) {
     head.appendChild(chip);
   });
 
+  // Optional structured generation params, e.g. { quant: "Q8_0", temperature: 0.6 }.
+  // Rendered as tags so they show in both gallery and comparison views.
+  if (m.params) {
+    Object.entries(m.params).forEach(([key, value]) => {
+      const chip = document.createElement("span");
+      chip.className = "note-chip";
+      chip.textContent = `${t("params." + key)}: ${value}`;
+      head.appendChild(chip);
+    });
+  }
+
+  // Optional source links, e.g. { chatTemplate: "...", model: "..." }.
+  if (m.links) {
+    Object.entries(m.links).forEach(([key, href]) => {
+      const a = document.createElement("a");
+      a.className = "note-chip link-chip";
+      a.href = href;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = `${t("links." + key)} ↗`;
+      head.appendChild(a);
+    });
+  }
+
   const check = document.createElement("input");
   check.type = "checkbox";
   check.className = "card-check";
