@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>果園筆記｜吃蘋果的好處</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ---- 基礎層 ---- */
+  body {
+    background: #f5f0e8;
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    color: #3a3a3a;
+    line-height: 1.6;
+    padding: 40px 20px 60px;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.015) 1px, transparent 1px);
+  }
+
+  /* ---- 卡片容器 ---- */
+  .orchard-card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 4px solid #d9c4a8;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    padding: 30px 28px 32px;
+    position: relative;
+  }
+
+  /* ---- 果園筆記編號 ---- */
+  .orchard-no {
+    display: inline-block;
+    padding: 6px 18px;
+    background: #c9a86a;
+    color: #3a2f12;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border: 1.5px solid #e0b98a;
+    border-radius: 4px 4px 0 0;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .orchard-card-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #3a2f12;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .orchard-card-subtitle {
+    font-size: 13px;
+    color: #8a7a6a;
+    margin-bottom: 22px;
+    font-style: italic;
+  }
+
+  /* ---- 撕線 ---- */
+  .torn-line {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #e0b98a, transparent);
+    border-radius: 3px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .torn-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, #e0b98a 0, #e0b98a 4px, transparent 4px, transparent 8px);
+  }
+
+  /* ---- 正文區 ---- */
+  .intro {
+    font-size: 15px;
+    color: #5a5243;
+    margin-bottom: 18px;
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  /* ---- 蘋果大圖片/表情符號 ---- */
+  .big-apple {
+    margin: 0 auto 22px;
+    display: inline-block;
+  }
+
+  /* ---- 互動好處列表 ---- */
+  .benefits {
+    list-style: none;
+    margin-bottom: 22px;
+  }
+  .benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e0dccd;
+  }
+  .benefit:last-child { border-bottom: none; }
+  .benefit-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #e0b98a;
+    color: #3a2f12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1;
+  }
+  .benefit-text { flex: 1; font-size: 15px; color: #3a2f12; }
+
+  /* ---- 營養數據區 ---- */
+  .nutrition {
+    background: #f0e8d8;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+  }
+  .nutrition-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #8a7a6a;
+    margin-bottom: 8px;
+  }
+  .nutrition-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .nutrition-table td {
+    padding: 6px 8px;
+    font-size: 14px;
+    border-bottom: 1px solid #e7d9c2;
+  }
+  .nutrition-table td:first-child {
+    font-weight: 700;
+    color: #3a2f12;
+    width: 55%;
+    text-align: left;
+  }
+  .nutrition-table tr:last-child td { border-bottom: none; }
+
+  /* ---- 底部 ---- */
+  .orchard-footer {
+    text-align: center;
+    padding-top: 14px;
+    font-size: 11px;
+    color: #8a7a6a;
+    font-style: italic;
+    border-top: 1px solid #e0dccd;
+    margin-top: 10px;
+  }
+
+  /* ---- 動態漸變線條 ---- */
+  @keyframes gradient {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+  }
+  .torn-line::before {
+    content: '';
+    position: absolute;
+    left: -30px; top: -3px;
+    width: 200px; height: 6px;
+    background: linear-gradient(90deg, transparent, #e0b98a, transparent);
+    border-radius: 3px;
+    animation: gradient 3s ease infinite;
+  }
+</style>
+</head>
+<body>
+
+<div class="orchard-card">
+  <div class="orchard-no">果園筆記</div>
+  <h1 class="orchard-card-title">吃蘋果的好處</h1>
+  <p class="orchard-card-subtitle">果園筆記 01 · 2026</p>
+
+  <div class="torn-line"></div>
+
+  <p class="intro">
+    擺在桌上的一小個紅色果子，輕輕咬一口，蘋果纖維與多酚便隨著汁水流入身體。今天來整理這份簡短的筆記，讓我們重溫每個蘋果帶來的細微養分。
+  </p>
+
+  <div class="big-apple">
+    🍎
+  </div>
+
+  <ul class="benefits">
+    <li class="benefit"><span class="benefit-icon">🍎</span><span class="benefit-text">促進消化 – 蘋果的膳食纖維能幫助腸道微生物健康與消化過程。</span></li>
+    <li class="benefit"><span class="benefit-icon">🍎</span><span class="benefit-text">富含抗氧化物 – 蘋果皮與果肉含類黃酮與多酚，具有抗氧化效果。</span></li>
+    <li class="benefit"><span class="benefit-icon">🍎</span><span class="benefit-text">提升免疫力 – 纖維與天然糖分提供血糖穩定，幫助身體維持健康狀態。</span></li>
+    <li class="benefit"><span class="benefit-icon">🍎</span><span class="benefit-text">保護血管 – 蘋果中的纖維有助於維持血管健康與降低心血管風險。</span></li>
+  </ul>
+
+  <div class="nutrition">
+    <div class="nutrition-label">營養數據</div>
+    <table class="nutrition-table">
+      <tr><td>卡路里</td><td>每100克約 52 卡</td></tr>
+      <tr><td>膳食纖維</td><td>約 2.4 克</td></tr>
+      <tr><td>膳食顏值</td><td>維生素 C 與 A</td></tr>
+      <tr><td>抗氧化營養素</td><td>類黃酮、槲黃素</td></tr>
+      <tr><td>水分</td><td>約 85 %</td></tr>
+    </table>
+  </div>
+
+  <div class="orchard-footer">
+    果園筆記 · 整理於 2026 ｜ 讓簡單的食養，轉化成每日的小小記憶
+  </div>
+</div>
+
+</body>
+</html>

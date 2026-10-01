@@ -34,7 +34,9 @@ const MODELS = [
   { family: "LiquidAI", variant: "LFM2.5-2.6B",            file: "LiquidAI/LFM2.5-2.6B/apple-benefits-card.html" },
   { family: "Qwen",     variant: "Cyber-Tiel-Coder",       file: "Qwen/Cyber-Tiel-Coder/index.html",
     // Structured metadata is rendered on the homepage (see main.js). Cards stay pure output.
-    params: { quant: "Q8_0", temperature: 0.6, min_p: 0.0, top_p: 0.95, top_k: 20, architecture: "MoE 35B/A3B" },
+    params: { quant: "UD-Q4_K_XL", kv: "Q8_0", temperature: 0.6, min_p: 0.0, top_p: 0.95, top_k: 20, architecture: "MoE 35B/A3B" },
     links:  { chatTemplate: "https://huggingface.co/peculiar-ragdoll/Qwen-Sharp-Chat-Templates",
               model: "https://huggingface.co/peculiar-ragdoll/Cyber-Tiel-Coder-35B-A3B-GGUF" } },
+  { family: "OpenBMB",  variant: "Sharp-MiniCPM5-2B-GGUF", file: "OpenBMB/Sharp-MiniCPM5-2B-GGUF/index.html",
+    notes: ["llama.cpp", "Q6_K_XL", "KV Q8_0", "temp 1.0", "top-p 0.95", "top-k 20", "min-p 0.0"] },
 ];
