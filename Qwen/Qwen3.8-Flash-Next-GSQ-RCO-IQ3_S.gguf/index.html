@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>果園筆記 NO.01 — 蘋果</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 9 C10 5,3 11,4 19 C5 27,11 31,16 31 C21 31,27 27,28 19 C29 11,22 5,16 9 Z' fill='%23C24A3E'/%3E%3Cpath d='M16 9 C16 5,15 3,14 2' stroke='%236B4A2A' stroke-width='2' fill='none'/%3E%3Cpath d='M17 6 C21 2,27 3,28 6 C25 10,20 9,17 6 Z' fill='%234F7A3F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --torn-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='16' preserveAspectRatio='none'%3E%3Cpath d='M0 9 L5 2 L10 11 L16 3 L21 12 L27 4 L33 11 L38 2 L44 9 L50 3 L55 11 L60 9 L60 16 L0 16 Z' fill='%23000'/%3E%3C/svg%3E");
+    --crease: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='12'%3E%3Cpath d='M0 6 L4 2 L9 8 L14 3 L19 9 L24 4 L29 8 L34 2 L40 6' fill='none' stroke='%236B655A' stroke-opacity='0.55' stroke-width='1.2'/%3E%3C/svg%3E");
+    --desk:      #E7E0D2;
+    --paper:     #FBF5E6;
+    --paper-2:   #F4ECD8;
+    --ink:       #2C2A25;
+    --ink-soft:  #6B655A;
+    --rule:      rgba(120,110,90,.16);
+    --red:       #C24A3E;
+    --red-deep:  #9E3529;
+    --leaf:      #4F7A3F;
+    --kraft:     #D8C7A2;
+    --stamp:     rgba(194,74,62,.75);
+    --serif: "Noto Serif TC","Songti TC","Times New Roman",serif;
+    --latin: "Cormorant Garamond","Noto Serif TC",serif;
+    --mono:  "IBM Plex Mono","SF Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-variant-numeric:lining-nums tabular-nums}
+  body{
+    min-height:100vh;
+    padding:48px 20px 72px;
+    font-family:var(--serif);
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 700px at 20% -10%, #F2EBDD, transparent 60%),
+      radial-gradient(900px 600px at 110% 110%, #DCD3C1, transparent 55%),
+      var(--desk);
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  /* desk grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(rgba(90,80,60,.10) 1px, transparent 1px);
+    background-size:4px 4px;
+  }
+
+  /* ─────────── 卡片本體 ─────────── */
+  .card{
+    position:relative;
+    width:min(720px,100%);
+    background:
+      repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+    padding:0 0 0;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.6) inset,
+      0 18px 40px -18px rgba(60,50,30,.45),
+      0 2px 6px rgba(60,50,30,.18);
+    /* 頂部撕下的鋸齒邊 */
+    -webkit-mask-image: var(--torn-tile), linear-gradient(#000 0 0);
+    -webkit-mask-position: 0 0, 0 16px;
+    -webkit-mask-size: 60px 16px, 100% calc(100% - 16px);
+    -webkit-mask-repeat: repeat-x, no-repeat;
+    mask-image: var(--torn-tile), linear-gradient(#000 0 0);
+    mask-position: 0 0, 0 16px;
+    mask-size: 60px 16px, 100% calc(100% - 16px);
+    mask-repeat: repeat-x, no-repeat;
+  }
+  /* 左側紅線（筆記本邊界線） */
+  .card::before{
+    content:"";position:absolute;top:16px;bottom:0;left:58px;width:1px;
+    background:rgba(194,74,62,.28);
+    box-shadow:1px 0 0 rgba(194,74,62,.12);
+  }
+
+  /* ─────────── 卡片頭部 ─────────── */
+  .head{padding:34px 40px 26px 78px}
+  .serial{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .serial__no{
+    font-family:var(--latin);
+    font-size:52px;line-height:.9;font-weight:600;
+    color:var(--red);letter-spacing:-.02em;
+    font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1,"onum" 0;
+  }
+  .serial__label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .serial__rule{flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--ink-soft) 0 3px,transparent 3px 6px);opacity:.5;min-width:20px}
+
+  h1.title{
+    margin:14px 0 6px;
+    font-size:44px;line-height:1.1;font-weight:700;letter-spacing:.02em;
+  }
+  h1.title .sci{
+    display:block;margin-top:8px;
+    font-family:var(--latin);font-style:italic;font-weight:400;
+    font-size:16px;color:var(--ink-soft);letter-spacing:.04em;
+  }
+  .subtitle{margin:10px 0 0;font-size:15.5px;color:var(--ink-soft);line-height:1.7}
+  .meta{
+    margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 18px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-soft);
+  }
+  .meta b{color:var(--ink);font-weight:500}
+
+  /* ─────────── 撕線 ─────────── */
+  .tear{
+    position:relative;height:30px;margin:4px -40px 0 -58px;
+  }
+  .tear::before{ /* 撕裂的鋸齒摺痕 */
+    content:"";position:absolute;left:58px;right:40px;top:9px;height:12px;
+    background:var(--crease) repeat-x left center;
+  }
+  .tear::after{ /* 摺痕下方浮起的淡影 */
+    content:"";position:absolute;left:58px;right:40px;top:21px;height:14px;
+    background:linear-gradient(180deg, rgba(60,50,30,.10), rgba(60,50,30,0));
+  }
+  .tear .hint{
+    position:absolute;right:44px;top:2px;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;
+    color:rgba(107,101,90,.75);background:var(--paper);padding:0 6px;
+  }
+
+  /* ─────────── 正文 ─────────── */
+  .body{padding:26px 40px 8px 78px}
+
+  .hero{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  .hero__art{
+    flex:0 0 190px;width:190px;height:210px;position:relative;
+    display:grid;place-items:center;
+  }
+  .hero__art svg{width:100%;height:auto;overflow:visible}
+  .hero__art::after{ /* 紙上淡影 */
+    content:"";position:absolute;left:14%;right:14%;bottom:-6px;height:16px;
+    background:radial-gradient(50% 100% at 50% 0%, rgba(60,50,30,.22), transparent 70%);
+    filter:blur(2px);
+  }
+  .apple__body{fill:url(#appleGrad);stroke:var(--red-deep);stroke-width:1.4}
+  .apple__shade{fill:url(#shadeGrad)}
+  .apple__leaf{fill:var(--leaf)}
+  .apple__stem{stroke:#6B4A2A;stroke-width:5;stroke-linecap:round;fill:none}
+  .apple__shine{fill:#fff;opacity:.22}
+  .apple__bite{fill:var(--paper)}
+  .hero__art:hover .apple{transform:rotate(-4deg) scale(1.03)}
+  .apple{transition:transform .45s cubic-bezier(.2,.9,.25,1);transform-origin:50% 90%}
+
+  .hero__copy{flex:1;min-width:240px}
+  .hero__copy p{margin:0 0 12px;font-size:16px;line-height:1.95;text-align:justify}
+  .hero__copy p .drop{
+    float:left;font-family:var(--latin);font-size:56px;line-height:.8;
+    font-weight:600;color:var(--red);padding:4px 10px 0 0;
+  }
+  .pull{
+    margin:16px 0 0;padding:10px 14px;border-left:3px solid var(--red);
+    background:rgba(194,74,62,.06);font-size:14px;line-height:1.75;color:var(--ink);
+  }
+  .pull span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--red-deep);display:block;margin-bottom:4px}
+
+  /* ─────────── 好處清單 ─────────── */
+  .sec-title{
+    display:flex;align-items:center;gap:12px;
+    margin:38px 0 4px;font-size:20px;font-weight:700;letter-spacing:.06em;
+  }
+  .sec-title::after{content:"";flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--ink-soft) 0 2px,transparent 2px 5px);opacity:.45}
+  .sec-hint{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);font-weight:400}
+
+  .benefits{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+  .benefit{
+    display:grid;grid-template-columns:26px 1fr auto;gap:14px;align-items:start;
+    padding:12px 14px;background:rgba(255,255,255,.42);
+    border:1px solid rgba(107,101,90,.18);
+    box-shadow:0 1px 0 rgba(255,255,255,.6);
+    cursor:pointer;user-select:none;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    opacity:0;transform:translateY(10px);
+  }
+  .benefit.in{opacity:1;transform:none}
+  .benefit:hover{transform:translateY(-2px) rotate(-.35deg);box-shadow:0 8px 18px -10px rgba(60,50,30,.5);background:rgba(255,255,255,.72)}
+  .benefit:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .benefit__box{
+    width:22px;height:22px;margin-top:2px;border:1.5px solid var(--ink-soft);
+    display:grid;place-items:center;background:#fff;
+  }
+  .benefit__box svg{width:16px;height:16px;stroke:var(--red-deep);stroke-width:2.6;fill:none;
+    stroke-dasharray:26;stroke-dashoffset:26;transition:stroke-dashoffset .35s ease}
+  .benefit__title{margin:0;font-size:16.5px;font-weight:700;letter-spacing:.02em}
+  .benefit__desc{margin:3px 0 0;font-size:13.5px;line-height:1.75;color:var(--ink-soft)}
+  .benefit__tag{
+    align-self:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+    padding:3px 8px;border:1px dashed rgba(107,101,90,.5);color:var(--ink-soft);
+    white-space:nowrap;background:rgba(216,199,162,.28);
+  }
+  .benefit[aria-pressed="true"]{background:rgba(79,122,63,.09);border-color:rgba(79,122,63,.4)}
+  .benefit[aria-pressed="true"] .benefit__box{border-color:var(--leaf);background:#fff}
+  .benefit[aria-pressed="true"] .benefit__box svg{stroke-dashoffset:0}
+  .benefit[aria-pressed="true"] .benefit__title{color:var(--leaf)}
+
+  /* ─────────── 營養數據 ─────────── */
+  .nutrition{
+    margin:34px 0 0;padding:18px 20px 16px;
+    border:1px solid rgba(107,101,90,.3);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 15px, rgba(107,101,90,.05) 15px 16px),
+      rgba(216,199,162,.22);
+    position:relative;
+  }
+  .nutrition__head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .nutrition__head h3{margin:0;font-size:16px;letter-spacing:.08em}
+  .nutrition__head span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft)}
+  .nutrition__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:26px}
+  .nutrition h4{margin:0 0 10px;font-size:12px;letter-spacing:.14em;color:var(--ink-soft);font-weight:500;
+    font-family:var(--mono);text-transform:uppercase}
+  .nutrition h4 span{letter-spacing:.08em;opacity:.8}
+
+  .comp ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .comp li{display:grid;grid-template-columns:1fr auto;gap:3px 8px;align-items:baseline}
+  .comp li>span{font-size:13px;color:var(--ink-soft);letter-spacing:.04em}
+  .comp li>b{font-family:var(--mono);font-size:16px;font-weight:500;color:var(--ink)}
+  .comp li>b small{font-size:10px;color:var(--ink-soft);margin-left:3px;font-weight:400}
+  .comp li>i{grid-column:1/-1;display:block;height:5px;background:rgba(107,101,90,.15)}
+  .comp li>i::after{content:"";display:block;height:100%;width:var(--v,0%);
+    background:linear-gradient(90deg,var(--leaf),var(--red));transition:width 1.1s cubic-bezier(.2,.9,.25,1)}
+
+  .facts dl{margin:0;display:grid;gap:8px}
+  .facts dl>div{display:flex;align-items:baseline;gap:7px}
+  .facts dt{font-size:13px;color:var(--ink-soft);white-space:nowrap;letter-spacing:.04em}
+  .facts .dots{flex:1;border-bottom:1px dotted rgba(107,101,90,.55);transform:translateY(-3px)}
+  .facts dd{margin:0;font-family:var(--mono);font-size:13.5px;color:var(--ink);white-space:nowrap}
+  .facts dd b{font-weight:500}
+  @media (max-width:560px){.nutrition__grid{grid-template-columns:1fr;gap:18px}}
+  .note{margin:14px 0 0;font-family:var(--mono);font-size:10px;line-height:1.7;color:var(--ink-soft);letter-spacing:.04em}
+
+  /* ─────────── 卡片底部 ─────────── */
+  .foot{
+    margin-top:34px;padding:14px 40px 22px 78px;
+    border-top:1px solid rgba(107,101,90,.25);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+  .foot b{color:var(--ink);font-weight:500}
+
+  /* 採收印章 */
+  .stamp{
+    position:absolute;right:26px;top:176px;width:132px;height:132px;
+    display:grid;place-items:center;text-align:center;
+    border:3px double var(--stamp);border-radius:50%;
+    color:var(--stamp);font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    line-height:1.6;transform:rotate(-14deg) scale(.6);opacity:0;
+    transition:transform .5s cubic-bezier(.2,1.4,.3,1),opacity .3s ease;
+    pointer-events:none;mix-blend-mode:multiply;
+  }
+  .stamp.on{opacity:.9;transform:rotate(-14deg) scale(1)}
+  .stamp b{display:block;font-family:var(--serif);font-size:19px;letter-spacing:.1em;margin-bottom:2px}
+
+  .toolbar{
+    width:min(720px,100%);margin:0 auto 14px;display:flex;justify-content:space-between;
+    align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    color:#6C6557;text-transform:uppercase;
+  }
+  .toolbar button{
+    font:inherit;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+    background:transparent;border:1px solid #A79E8B;color:#4C463C;padding:5px 12px;
+  }
+  .toolbar button:hover{background:rgba(255,255,255,.5)}
+
+  @media (max-width:640px){
+    body{padding:24px 12px 48px}
+    .head,.body{padding-left:26px;padding-right:22px}
+    .card::before{left:14px}
+    .tear{margin:4px -22px 0 -14px}
+    .tear::before,.tear::after{left:14px;right:22px}
+    .tear .hint{right:24px}
+    h1.title{font-size:34px}
+    .foot{padding-left:26px;padding-right:22px}
+    .stamp{right:6px;top:200px;width:104px;height:104px}
+    .benefit{grid-template-columns:22px 1fr}
+    .benefit__tag{grid-column:2;justify-self:start}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .benefit{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <div class="toolbar">
+    <span>Orchard Notes · 手帳系列</span>
+    <button id="reset" type="button">重新開始</button>
+  </div>
+
+  <article class="card">
+    <!-- ── 卡片頭部 ── -->
+    <header class="head">
+      <div class="serial">
+        <span class="serial__no">01</span>
+        <span class="serial__label">果園筆記 / Orchard Notes</span>
+        <span class="serial__rule"></span>
+        <span class="serial__label">採收於 10 月</span>
+      </div>
+
+      <h1 class="title">蘋果
+        <span class="sci">Malus domestica — 薔薇科 蘋果屬</span>
+      </h1>
+      <p class="subtitle">一整年都買得到的水果，也是最便宜的一味預防藥。<br>以下七條，是這季筆記裡被反覆圈起來的部分。</p>
+
+      <div class="meta">
+        <span>品種 <b>富士 /  Gala</b></span>
+        <span>甜度 <b>13.2 Bx</b></span>
+        <span>酸度 <b>0.31%</b></span>
+        <span>頁 <b>01 / 12</b></span>
+      </div>
+    </header>
+
+    <!-- ── 撕線 ── -->
+    <div class="tear" role="separator" aria-label="撕線">
+      <span class="hint">✂ 沿線撕下</span>
+    </div>
+
+    <!-- ── 正文 ── -->
+    <div class="body">
+      <section class="hero">
+        <div class="hero__art" aria-hidden="true">
+          <svg class="apple" viewBox="0 0 210 230" role="img" aria-label="蘋果插畫">
+            <defs>
+              <linearGradient id="appleGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%"  stop-color="#D9564A"/>
+                <stop offset="55%" stop-color="#C24A3E"/>
+                <stop offset="100%" stop-color="#9E3529"/>
+              </linearGradient>
+              <radialGradient id="shadeGrad" cx="68%" cy="82%" r="62%">
+                <stop offset="55%" stop-color="#5E1E16" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#5E1E16" stop-opacity=".5"/>
+              </radialGradient>
+            </defs>
+            <path class="apple__stem" d="M105 52 C 104 32, 100 20, 96 12"/>
+            <path class="apple__leaf" d="M108 34 C 128 10, 164 12, 168 32 C 152 52, 120 50, 108 34 Z"/>
+            <path id="appleBody" class="apple__body" d="M105 58 C 62 34, 18 66, 20 118 C 22 172, 62 214, 105 214 C 148 214, 188 172, 190 118 C 192 66, 148 34, 105 58 Z"/>
+            <use class="apple__shade" href="#appleBody"/>
+            <ellipse class="apple__shine" cx="64" cy="94" rx="13" ry="25" transform="rotate(-16 64 94)"/>
+          </svg>
+        </div>
+
+        <div class="hero__copy">
+          <p><span class="drop">苹</span>果最迷人的地方不在甜，而在皮與果肉之間那一層苦澀。膳食纖維、多酚與果膠多半藏在那裡——所以吃蘋果最好連皮一起洗淨咬下，別只取中間最甜的一口。</p>
+          <p>它同時是最耐放的水果：冷藏數週仍保持脆度，適合放在書桌、背包或野餐布上，作為任何一份餐點的配角。</p>
+          <blockquote class="pull">
+            <span>Field Note · 田間備註</span>
+            切開後會褐變，是多酚氧化酶在工作，不是壞了。泡淡鹽水或擠檸檬汁即可延緩。
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ── 好處清單 ── -->
+      <h2 class="sec-title">吃蘋果的好處 <span class="sec-hint">逐條勾選 · 7 項</span></h2>
+      <ul class="benefits" id="benefits">
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">腸道喜歡的那種纖維</h3>
+            <p class="benefit__desc">一顆中等蘋果約 4 克膳食纖維，其中果膠是益生質，餵養腸道菌相、讓排便穩定。</p>
+          </div>
+          <span class="benefit__tag">果膠 2.4g/100g</span>
+        </li>
+
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">血糖不會衝太快</h3>
+            <p class="benefit__desc">糖分被纖維包住，升糖指數約 36，屬於低 GI；比喝果汁慢得多，也飽得多。</p>
+          </div>
+          <span class="benefit__tag">GI ≈ 36</span>
+        </li>
+
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">熱量低，體積大</h3>
+            <p class="benefit__desc">每 100 克僅 52 大卡、水分近 86%。同樣體積下，比餅乾、堅果都更容易控制份量。</p>
+          </div>
+          <span class="benefit__tag">52 kcal</span>
+        </li>
+
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">多酚：槲皮素與兒茶素</h3>
+            <p class="benefit__desc">集中在果皮，抗氧化、協助對抗慢性發炎。紅蘋果的花青素也是同一類東西。</p>
+          </div>
+          <span class="benefit__tag">連皮吃</span>
+        </li>
+
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">鉀幫血壓把關</h3>
+            <p class="benefit__desc">一顆約 195 毫克鉀，協助排出多餘鈉；搭配低加工飲食，對血壓管理有實際幫助。</p>
+          </div>
+          <span class="benefit__tag">鉀 107mg/100g</span>
+        </li>
+
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">咀嚼本身就是好處</h3>
+            <p class="benefit__desc">脆硬的果肉刺激唾液分泌、清潔牙面，比吃黏牙的甜食對牙齒友善（吃完仍要漱口）。</p>
+          </div>
+          <span class="benefit__tag">脆度 7.5</span>
+        </li>
+
+        <li class="benefit" tabindex="0" role="button" aria-pressed="false">
+          <span class="benefit__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13 l5 6 L20 5"/></svg></span>
+          <div>
+            <h3 class="benefit__title">容易養成的習慣</h3>
+            <p class="benefit__desc">不用切、不用煮、不用冷藏也能放一天。容易持續的飲食改變，比難堅持的完美食譜有效。</p>
+          </div>
+          <span class="benefit__tag">零廚藝</span>
+        </li>
+      </ul>
+
+      <!-- ── 營養數據 ── -->
+      <section class="nutrition" aria-label="營養數據">
+        <div class="nutrition__head">
+          <h3>營養數據 · 每 100 g（帶皮，生）</h3>
+          <span>一顆中等 ≈ 182 g / 95 kcal</span>
+        </div>
+        <div class="nutrition__grid">
+          <div class="comp">
+            <h4>成分構成 <span>· g / 100 g</span></h4>
+            <ul id="comp">
+              <li><span>水分</span><b>85.6<small>g</small></b><i data-v="85.6%"></i></li>
+              <li><span>碳水化合物</span><b>13.8<small>g</small></b><i data-v="13.8%"></i></li>
+              <li><span>總糖（果糖・葡萄糖・蔗糖）</span><b>10.4<small>g</small></b><i data-v="10.4%"></i></li>
+              <li><span>膳食纖維（含果膠）</span><b>2.4<small>g</small></b><i data-v="2.4%"></i></li>
+            </ul>
+          </div>
+          <div class="facts">
+            <h4>其他數值 <span>· 每 100 g</span></h4>
+            <dl>
+              <div><dt>熱量</dt><span class="dots"></span><dd><b>52</b> kcal</dd></div>
+              <div><dt>鉀</dt><span class="dots"></span><dd><b>107</b> mg</dd></div>
+              <div><dt>維生素 C</dt><span class="dots"></span><dd><b>4.6</b> mg</dd></div>
+              <div><dt>維生素 K</dt><span class="dots"></span><dd><b>2.2</b> µg</dd></div>
+              <div><dt>鎂 / 鈣</dt><span class="dots"></span><dd><b>5 / 6</b> mg</dd></div>
+              <div><dt>脂肪 / 蛋白質</dt><span class="dots"></span><dd><b>0.2 / 0.3</b> g</dd></div>
+            </dl>
+          </div>
+        </div>
+        <p class="note">資料來源：USDA FoodData Central（apple, raw, with skin）。條狀圖為該成分在 100 g 果肉中的重量佔比；數值為平均值，會隨品種、成熟度與栽種條件浮動。</p>
+      </section>
+    </div>
+
+    <!-- ── 卡片底部 ── -->
+    <footer class="foot">
+      <span>果園筆記 <b>NO.01</b> · 蘋果</span>
+      <span>下一張 <b>02 — 香蕉</b></span>
+      <span>完成度 <b id="progress">0 / 7</b></span>
+    </footer>
+
+    <div class="stamp" id="stamp" aria-hidden="true">
+      <span><b>已讀</b>Orchard Notes<br>NO.01 蘋果</span>
+    </div>
+  </article>
+</div>
+
+<script>
+  const items = [...document.querySelectorAll('.benefit')];
+  const progress = document.getElementById('progress');
+  const stamp = document.getElementById('stamp');
+
+  function sync(){
+    const done = items.filter(i => i.getAttribute('aria-pressed') === 'true').length;
+    progress.textContent = `${done} / ${items.length}`;
+    stamp.classList.toggle('on', done === items.length);
+  }
+  function toggle(el){
+    el.setAttribute('aria-pressed', el.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    sync();
+  }
+  items.forEach(el => {
+    el.addEventListener('click', () => toggle(el));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(el); }
+    });
+  });
+  document.getElementById('reset').addEventListener('click', () => {
+    items.forEach(i => i.setAttribute('aria-pressed', 'false'));
+    sync();
+  });
+
+  // 進場：清單逐條浮現、營養條狀圖展開
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  items.forEach((el, i) => reduce ? el.classList.add('in')
+    : setTimeout(() => el.classList.add('in'), 120 + i * 90));
+  document.querySelectorAll('#comp i').forEach((b, i) => {
+    const v = b.dataset.v;
+    if (reduce) b.style.setProperty('--v', v);
+    else setTimeout(() => b.style.setProperty('--v', v), 450 + i * 140);
+  });
+</script>
+</body>
+</html>

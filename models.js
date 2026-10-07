@@ -63,4 +63,6 @@ const MODELS = [
               model: "https://huggingface.co/peculiar-ragdoll/Cyber-Tiel-Coder-35B-A3B-GGUF" } },
   { family: "OpenBMB",  variant: "Sharp-MiniCPM5-2B-GGUF", file: "OpenBMB/Sharp-MiniCPM5-2B-GGUF/index.html", added: "2026-10-01",
     notes: ["llama.cpp", "Q6_K_XL", "KV Q8_0", "temp 1.0", "top-p 0.95", "top-k 20", "min-p 0.0"] },
+  { family: "Qwen",     variant: "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S.gguf", file: "Qwen/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S.gguf/index.html", added: "2026-10-07",
+    notes: ["Strata", "IQ3_S", "KV Q4_0"] },
 ];
