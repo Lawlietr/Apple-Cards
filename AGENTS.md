@@ -21,7 +21,27 @@
    - 具體變體：完整模型名稱，如 `Qwen3.6-35B-think`
 2. 不要修改其他模型的檔案
 3. 不要修改 `README.md`、`AGENTS.md`
-4. 新增模型卡片後，须在 repo 根目錄 `models.js` 末尾註冊一列（`{ family, variant, effort?, file, notes? }`），網站首頁才會顯示其預覽（篩選按鈕與左側導航欄會自動產生，無需手動維護）；`notes` 為可選的短標籤陣列，寫執行環境/量化/上下文等備註（如 `["llama.cpp", "Q4_K_M", "ctx 4096"]`）；`README.md` 與 `llms.txt` 的模型表格請一併同步
+4. 新增模型卡片後，须在 repo 根目錄 `models.js` **末尾** append 一列（`{ family, variant, effort?, file, added, notes? }`），網站首頁才會顯示其預覽（篩選按鈕與左側導航欄會自動產生，無需手動維護）
+   - `added`（**必要**）：該卡片加入 repo 的日期，格式 `"YYYY-MM-DD"`（即當天日期）。它是網站的排序鍵，見下方「排序規則」
+   - `effort`（選填）：同一模型的不同 reasoning effort，每個 effort 一列，變體相鄰、較強的排前面
+   - `notes`（選填）：短標籤陣列，寫執行環境/量化/上下文等備註（如 `["llama.cpp", "Q4_K_M", "ctx 4096"]`）
+   - `README.md` 與 `llms.txt` 的模型表格請一併同步，**最新的列排在最上層**，並帶「加入日期」欄位
+
+## 排序規則（必須遵守：新成果置頂）
+
+網站一律把**最新加入的模型卡片排在最上層**。實作方式：
+
+1. `models.js` 的 `MODELS` 陣列**只 append、不手動重排**，保持加入時間的先後順序。
+2. 每一列必須帶 `added: "YYYY-MM-DD"`。
+3. `main.js` 的 `orderRegistry()` 依 `added` **倒序**排序後才渲染（`ORDER`）。
+   - 缺 `added` 的列會落到最後
+   - 同日期者保持書寫順序（讓 effort 變體相鄰）
+4. 因此新增模型時**不要**為了排序去動 `models.js` 的列序，也**不要**改 `main.js`；
+   只要在末尾 append 並填對 `added`，位置會自動正確。
+5. 所有渲染路徑（卡片網格、家族篩選鈕、左側導航欄、側欄跳轉的分頁計算）
+   都必須讀同一個排序後的 `ORDER`，不可混用 `MODELS`。
+6. `README.md`「已測試模型」與 `llms.txt`「Available cards」兩份表格
+   必須同步為最新的在前，並帶加入日期欄位。
 
 ## 支援的模型格式
 
@@ -31,14 +51,12 @@
 
 ## 測試模型清單
 
+> 這是**節選範例**，不是完整清單。完整且正確的清單以 [`models.js`](./models.js) 為準，
+> `README.md` 與 `llms.txt` 的表格需與其一致，且一律**最新加入的排在最上層**（見「排序規則」）。
+
 | 模型家族 | 具體變體 | 檔案名稱 |
 |---------|---------|---------|
-| Gemma | Gemma4-12B | `index.html` |
-| Gemma | HauhauCS-Gemma-4-26B-A4B | `index.html` |
-| OpenAI | GPT-OSS-20B | `index.html` |
-| Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `index.html` |
-| Qwen | Qwen-3.5-9B | `index.html` |
-| Qwen | Qwen3.6-35B-think | `index.html` |
+| OpenBMB | Sharp-MiniCPM5-2B-GGUF | `index.html` |
 | Qwen | Qwen3.8-27B | `xhigh.html`（reasoning effort: xhigh）、`medium.html`（reasoning effort: medium），同一模型不同思考強度各一組 |
 | LiquidAI | LFM2.5-2.6B | `apple-benefits-card.html` |
 

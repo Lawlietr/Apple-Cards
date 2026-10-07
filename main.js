@@ -82,6 +82,32 @@ const state = {
   selected: new Set(), // card file paths selected for comparison
 };
 
+/* ---------- registry order ----------
+ * The site shows the NEWEST cards first. `models.js` stays append-only and
+ * carries an `added` date (YYYY-MM-DD) per entry; we sort on it here instead
+ * of reordering the registry by hand.
+ *
+ * Rules (kept in sync with the header comment in models.js and AGENTS.md):
+ *   • `added` descending — newest additions render at the top.
+ *   • Entries without `added` sink to the bottom, in written order.
+ *   • Entries sharing an `added` date keep their written order, which keeps
+ *     reasoning-effort variants adjacent.
+ *
+ * Every render path must read ORDER, never MODELS: the card grid, the family
+ * filter chips, the sidebar and the jump-to-card pagination all derive their
+ * order from the same array, so mixing the two would desynchronise them.
+ */
+function orderRegistry() {
+  return MODELS.map((m, i) => ({ m, i }))
+    .sort(
+      (a, b) =>
+        String(b.m.added || "").localeCompare(String(a.m.added || "")) || a.i - b.i
+    )
+    .map((x) => x.m);
+}
+
+const ORDER = orderRegistry();
+
 function t(key) {
   const dict = I18N[state.lang] || {};
   return dict[key] ?? I18N[DEFAULT_LANG][key] ?? key;
@@ -113,7 +139,7 @@ langSelect.addEventListener("change", () => {
 
 /* ---------- filters ---------- */
 function renderFilters() {
-  const families = [...new Set(MODELS.map((m) => m.family))];
+  const families = [...new Set(ORDER.map((m) => m.family))];
   filtersEl.innerHTML = "";
 
   const makeChip = (key, label) => {
@@ -149,9 +175,9 @@ function buildSidebar() {
   title.textContent = t("nav.models");
   sidebarEl.appendChild(title);
 
-  const families = [...new Set(MODELS.map((m) => m.family))];
+  const families = [...new Set(ORDER.map((m) => m.family))];
   families.forEach((f) => {
-    const models = MODELS.filter((m) => m.family === f);
+    const models = ORDER.filter((m) => m.family === f);
 
     const det = document.createElement("details");
     det.className = "nav-family";
@@ -190,7 +216,7 @@ function jumpToCard(file) {
     // Card not in the DOM yet (pagination) or hidden by an active family
     // filter — widen the grid to include it, then scroll.
     state.family = "all";
-    const idx = MODELS.findIndex((m) => m.file === file);
+    const idx = ORDER.findIndex((m) => m.file === file);
     state.visible = Math.max(INITIAL_BATCH, idx + 1);
     renderFilters();
     renderGrid();
@@ -337,11 +363,11 @@ function renderGrid() {
 
   let items;
   if (comparing) {
-    items = MODELS.filter((m) => state.selected.has(m.file));
+    items = ORDER.filter((m) => state.selected.has(m.file));
     gridEl.style.gridTemplateColumns = "repeat(2, minmax(0, 1fr))";
   } else {
     gridEl.style.gridTemplateColumns = "";
-    const pool = MODELS.filter(
+    const pool = ORDER.filter(
       (m) => state.family === "all" || m.family === state.family
     );
     items = pool.slice(0, state.visible);

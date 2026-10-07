@@ -12,7 +12,8 @@
 
 - Theme: light/dark toggle, persisted in `localStorage`, falls back to `prefers-color-scheme`.
 - Language: English (`en`) and Traditional Chinese (`zh-TW`); selector is data-driven from `i18n.js` (add a dictionary + one `SUPPORTED_LANGS` entry to add more).
-- Filtering: cards can be filtered by model family (Gemma, Gemini, OpenAI, Qwen, LiquidAI).
+- Filtering: cards can be filtered by model family (Gemma, Gemini, OpenAI, Qwen, LiquidAI, OpenBMB).
+- Ordering: the NEWEST cards are shown first. `models.js` is append-only and each entry carries an `added` date (`YYYY-MM-DD`); `main.js` sorts by that date descending before rendering. Family filter buttons and the sidebar follow the same derived order.
 - Progressive loading: only the first few cards are rendered on load; a "Load more" button reveals the rest (keeps iframe previews lazy).
 - Comparison: tick the checkbox on up to 4 cards and open them side by side.
 - Navigation: a left sidebar groups models by family; clicking a family name expands its models, and clicking a model jumps to that card (quick navigation only — it does not filter or compare).
@@ -32,25 +33,28 @@
 
 ## Available cards
 
-| Model family | Model variant | Effort | Card file |
-|---|---|---|---|
-| Gemma | Gemma4-12B | — | `Gemma/Gemma4-12B/index.html` |
-| Gemma | HauhauCS-Gemma-4-26B-A4B | — | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
-| Gemini | Gemini-3.7_Flash | — | `Gemini/Gemini-3.7_Flash/index.html` |
-| OpenAI | GPT-OSS-20B | — | `OpenAI/GPT-OSS-20B/index.html` |
-| OpenAI | GPT-5.6_sol | xhigh | `OpenAI/GPT-5.6_sol/xhigh.html` |
-| OpenAI | GPT-5.6_sol | high | `OpenAI/GPT-5.6_sol/high.html` |
-| Qwen | Cyber-Tiel-Coder | — | `Qwen/Cyber-Tiel-Coder/index.html` |
-| Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | — | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
-| Qwen | Qwen-3.5-9B | — | `Qwen/Qwen-3.5-9B/index.html` |
-| Qwen | Qwen3.6-35B-think | — | `Qwen/Qwen3.6-35B-think/index.html` |
-| Qwen | Qwen3.8-27B | xhigh | `Qwen/Qwen3.8-27B/xhigh.html` |
-| Qwen | Qwen3.8-27B | medium | `Qwen/Qwen3.8-27B/medium.html` |
-| LiquidAI | LFM2.5-2.6B | — | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
+**Ordered newest-first — the most recently added card is listed first. Keep this table in sync with `models.js` (see the `added` field).**
+
+| Added | Model family | Model variant | Effort | Card file |
+|---|---|---|---|---|
+| 2026-10-01 | OpenBMB | Sharp-MiniCPM5-2B-GGUF | — | `OpenBMB/Sharp-MiniCPM5-2B-GGUF/index.html` |
+| 2026-09-13 | Qwen | Cyber-Tiel-Coder | — | `Qwen/Cyber-Tiel-Coder/index.html` |
+| 2026-08-25 | Gemini | Gemini-3.7_Flash | — | `Gemini/Gemini-3.7_Flash/index.html` |
+| 2026-08-25 | OpenAI | GPT-5.6_sol | xhigh | `OpenAI/GPT-5.6_sol/xhigh.html` |
+| 2026-08-25 | OpenAI | GPT-5.6_sol | high | `OpenAI/GPT-5.6_sol/high.html` |
+| 2026-08-20 | Gemma | Gemma4-12B | — | `Gemma/Gemma4-12B/index.html` |
+| 2026-08-20 | Gemma | HauhauCS-Gemma-4-26B-A4B | — | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
+| 2026-08-20 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | — | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
+| 2026-08-20 | Qwen | Qwen-3.5-9B | — | `Qwen/Qwen-3.5-9B/index.html` |
+| 2026-08-20 | Qwen | Qwen3.6-35B-think | — | `Qwen/Qwen3.6-35B-think/index.html` |
+| 2026-08-20 | Qwen | Qwen3.8-27B | xhigh | `Qwen/Qwen3.8-27B/xhigh.html` |
+| 2026-08-20 | Qwen | Qwen3.8-27B | medium | `Qwen/Qwen3.8-27B/medium.html` |
+| 2026-08-19 | OpenAI | GPT-OSS-20B | — | `OpenAI/GPT-OSS-20B/index.html` |
+| 2026-08-19 | LiquidAI | LFM2.5-2.6B | — | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
 
 ## Site source files (for programmatic use)
 
-- `models.js` — the canonical machine-readable model registry (JS array of `{ family, variant, effort?, file, notes? }`; `notes` = short tags such as `llama.cpp`, `Q4_K_M`); the filter buttons, card grid, and per-card tags are generated from it.
+- `models.js` — the canonical machine-readable model registry (JS array of `{ family, variant, effort?, file, added, notes? }`). `added` (`YYYY-MM-DD`) is required and is the sort key; the array is append-only and chronological, and `main.js` renders it newest-first. `notes` = short tags such as `llama.cpp`, `Q4_K_M`. The filter buttons, card grid, sidebar and per-card tags are generated from it.
 - `i18n.js` — all UI strings; `I18N` dictionary per language plus `SUPPORTED_LANGS` list.
 - `main.js` — theme, language, filter, and grid rendering logic (vanilla JS, no dependencies).
 - `style.css` — site styles; theme tokens are CSS custom properties under `:root` (light) and `[data-theme="dark"]`.
@@ -58,5 +62,6 @@
 ## Notes
 
 - The card folders follow the layout `{Family}/{Variant}/<file>.html`; filename varies per model (`index.html`, `apple-benefits-card.html`, or effort-level names like `xhigh.html`).
+- Model order everywhere (site, README table, this table) is newest-added-first; never reorder by hand — add the entry at the end of `models.js` with today's `added` date.
 - This repo compares model outputs only — the cards are the deliverables being evaluated (visual design, content correctness, interactivity, code quality).
 - All cards are responses to the original Traditional Chinese prompt (see AGENTS.md “語言基線”). Any translated copy in this repo or on the site must state that the cards were produced from the Traditional Chinese prompt.

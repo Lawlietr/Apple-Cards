@@ -42,6 +42,8 @@ apple-cards/
 ├── LiquidAI/
 │   └── LFM2.5-2.6B/
 │       └── apple-benefits-card.html
+├── OpenBMB/
+│   └── Sharp-MiniCPM5-2B-GGUF/
 └── ...
 ```
 
@@ -50,26 +52,44 @@ apple-cards/
 1. 將 `AGENTS.md` 中的提示詞與規範提供給模型
 2. 將模型產出的 `index.html` 放入對應 `{模型家族}/{具體變體}/` 資料夾
 3. 在該資料夾內建立 `notes.md` 記錄測試環境參數
-4. 在 `models.js` 末尾 append 一列，讓新模型出現在網站
+4. 在 `models.js` **末尾** append 一列（帶 `added` 加入日期），新模型會自動排在網站最上層
 5. 預覽：瀏覽器開啟網站首頁 `index.html`（或直接開啟該模型的卡片檔案）
 
 ## 已測試模型
 
-| 模型家族 | 具體變體 | 檔案 |
-|---------|---------|------|
-| Gemma | Gemma4-12B | `Gemma/Gemma4-12B/index.html` |
-| Gemma | HauhauCS-Gemma-4-26B-A4B | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
-| Gemini | Gemini-3.7_Flash | `Gemini/Gemini-3.7_Flash/index.html` |
-| OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
-| OpenAI | GPT-5.6_sol（reasoning effort: xhigh） | `OpenAI/GPT-5.6_sol/xhigh.html` |
-| OpenAI | GPT-5.6_sol（reasoning effort: high） | `OpenAI/GPT-5.6_sol/high.html` |
-| Qwen | Cyber-Tiel-Coder | `Qwen/Cyber-Tiel-Coder/index.html` |
-| Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
-| Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
-| Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |
-| Qwen | Qwen3.8-27B（reasoning effort: xhigh） | `Qwen/Qwen3.8-27B/xhigh.html` |
-| Qwen | Qwen3.8-27B（reasoning effort: medium） | `Qwen/Qwen3.8-27B/medium.html` |
-| LiquidAI | LFM2.5-2.6B | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
+> 排序規則：**最新加入的排在最上層**（依 `models.js` 的 `added` 欄位倒序）。
+> 完整且正確的清單以 [`models.js`](./models.js) 為準，本表需與其保持一致。
+
+| 加入日期 | 模型家族 | 具體變體 | 檔案 |
+|---------|---------|---------|------|
+| 2026-10-01 | OpenBMB | Sharp-MiniCPM5-2B-GGUF | `OpenBMB/Sharp-MiniCPM5-2B-GGUF/index.html` |
+| 2026-09-13 | Qwen | Cyber-Tiel-Coder | `Qwen/Cyber-Tiel-Coder/index.html` |
+| 2026-08-25 | Gemini | Gemini-3.7_Flash | `Gemini/Gemini-3.7_Flash/index.html` |
+| 2026-08-25 | OpenAI | GPT-5.6_sol（reasoning effort: xhigh） | `OpenAI/GPT-5.6_sol/xhigh.html` |
+| 2026-08-25 | OpenAI | GPT-5.6_sol（reasoning effort: high） | `OpenAI/GPT-5.6_sol/high.html` |
+| 2026-08-20 | Gemma | Gemma4-12B | `Gemma/Gemma4-12B/index.html` |
+| 2026-08-20 | Gemma | HauhauCS-Gemma-4-26B-A4B | `Gemma/HauhauCS-Gemma-4-26B-A4B/index.html` |
+| 2026-08-20 | Qwen | Kwaipilot_KAT-Coder-V2.5-Dev | `Qwen/Kwaipilot_KAT-Coder-V2.5-Dev/index.html` |
+| 2026-08-20 | Qwen | Qwen-3.5-9B | `Qwen/Qwen-3.5-9B/index.html` |
+| 2026-08-20 | Qwen | Qwen3.6-35B-think | `Qwen/Qwen3.6-35B-think/index.html` |
+| 2026-08-20 | Qwen | Qwen3.8-27B（reasoning effort: xhigh） | `Qwen/Qwen3.8-27B/xhigh.html` |
+| 2026-08-20 | Qwen | Qwen3.8-27B（reasoning effort: medium） | `Qwen/Qwen3.8-27B/medium.html` |
+| 2026-08-19 | OpenAI | GPT-OSS-20B | `OpenAI/GPT-OSS-20B/index.html` |
+| 2026-08-19 | LiquidAI | LFM2.5-2.6B | `LiquidAI/LFM2.5-2.6B/apple-benefits-card.html` |
+
+## 排序規則
+
+網站一律**新成果置頂**，規則由 `models.js` + `main.js` 共同保证：
+
+1. `models.js` 的陣列**只 append、不手動重排**，保持加入時間順序。
+2. 每一列必須帶 `added: "YYYY-MM-DD"`（加入 repo 的日期，即當天日期）。
+3. `main.js` 的 `orderRegistry()` 依 `added` **倒序**排序後才渲染；
+   缺 `added` 的列會落到最后；同日期者保持書寫順序（讓 effort 變體相鄰）。
+4. 因此**不需**為了排序去改 `models.js` 的列序，也不需改 `main.js`。
+5. 本檔「已測試模型」表格與 `llms.txt` 的「Available cards」表格
+   必須同步為**最新的在前**，並帶「加入日期」欄位。
+6. 家族篩選鈕與左側導航欄的家族順序，同樣由排序後的清單推导，
+   不需手動維護。
 
 ## 公開網站（GitHub Pages）
 
@@ -84,11 +104,12 @@ apple-cards/
 ## 新增模型
 
 1. 卡片檔放入 `{模型家族}/{具體變體}/`
-2. `models.js` 末尾 append 一列：`{ family, variant, effort?, file, notes? }`
+2. `models.js` **末尾** append 一列：`{ family, variant, effort?, file, added }`
+   - `added`（**必要**）：加入日期 `"YYYY-MM-DD"`，網站排序依此欄位（見上方「排序規則」）
    - `notes`（選填）：短字串陣列，會以小標籤顯示在模型名稱旁，
      適合放執行參數與量化資訊，例如：
      `notes: ["llama.cpp", "Q4_K_M", "ctx 4096"]`
-3. 同步更新本檔「已測試模型」表格與 `llms.txt` 的表格（建議）
+3. 同步更新本檔「已測試模型」表格與 `llms.txt` 的表格，**最新的列排在最上層**
 
 ## 新增語言
 
