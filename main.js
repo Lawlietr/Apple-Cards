@@ -175,7 +175,16 @@ function buildSidebar() {
   title.textContent = t("nav.models");
   sidebarEl.appendChild(title);
 
-  const families = [...new Set(ORDER.map((m) => m.family))];
+  // Sidebar families are listed 0-9 then A-Z so a vendor can be found by name.
+  // This is the one place that does NOT follow the newest-first registry order:
+  // the filter chips and the card grid stay newest-first, and the models inside
+  // a family come from ORDER (also newest-first).
+  // Collation is pinned to "en" so the order never depends on the visitor's
+  // UI language; numeric:true keeps Kimi-K2 before Kimi-K10, and caseFirst
+  // keeps "Gemma"/"gemma" from splitting into separate groups.
+  const families = [...new Set(ORDER.map((m) => m.family))].sort((a, b) =>
+    a.localeCompare(b, "en", { numeric: true, caseFirst: "lower" })
+  );
   families.forEach((f) => {
     const models = ORDER.filter((m) => m.family === f);
 

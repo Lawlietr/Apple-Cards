@@ -23,13 +23,24 @@
  * ORDERING (why the list order does not matter, and what does):
  *   The site displays the NEWEST cards first. `main.js` sorts this list by
  *   `added` descending before rendering; entries missing `added` sink to the
- *   bottom in written order. Entries sharing an `added` date keep their
- *   written order — that is what keeps effort pairs together.
+ *   bottom in written order.
+ *
+ *   SAME-DATE TIE-BREAK (an explicit rule, not an accident): entries sharing
+ *   an `added` date keep their written order, i.e. the order they were
+ *   appended on that day. For effort variants of one model the strongest
+ *   effort MUST be written first (xhigh before high before medium), so the
+ *   pair stays adjacent and reads strongest-first everywhere. A finer
+ *   timestamp would not remove the need for this rule — variants committed
+ *   together share one commit timestamp.
+ *
  *   Because of that, the array itself stays append-only and chronological.
  *
- *   The filter buttons, the sidebar and the card grid are all generated from
- *   this list — no other code changes needed. The README.md and llms.txt
- *   model tables must be kept in the same newest-first order (see AGENTS.md).
+ *   The filter chips and the card grid follow the sorted list above. The
+ *   sidebar lists FAMILY NAMES alphabetically (0-9 then A-Z) so a vendor can
+ *   be found by name, but the models inside each family follow the same
+ *   newest-first order. No other code changes are needed. The README.md and
+ *   llms.txt model tables must be kept in the same newest-first order
+ *   (see AGENTS.md).
  * ============================================================ */
 
 const MODELS = [

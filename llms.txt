@@ -13,7 +13,7 @@
 - Theme: light/dark toggle, persisted in `localStorage`, falls back to `prefers-color-scheme`.
 - Language: English (`en`) and Traditional Chinese (`zh-TW`); selector is data-driven from `i18n.js` (add a dictionary + one `SUPPORTED_LANGS` entry to add more).
 - Filtering: cards can be filtered by model family (Gemma, Gemini, OpenAI, Qwen, LiquidAI, OpenBMB).
-- Ordering: the NEWEST cards are shown first. `models.js` is append-only and each entry carries an `added` date (`YYYY-MM-DD`); `main.js` sorts by that date descending before rendering. Family filter buttons and the sidebar follow the same derived order.
+- Ordering: the NEWEST cards are shown first. `models.js` is append-only and each entry carries an `added` date (`YYYY-MM-DD`); `main.js` sorts by that date descending before rendering. Family filter buttons follow that same derived order; entries sharing a date keep their written order (strongest reasoning effort written first). The left sidebar is the one exception: family names there are listed 0-9 then A-Z for lookup, while the models inside each family stay newest-first.
 - Progressive loading: only the first few cards are rendered on load; a "Load more" button reveals the rest (keeps iframe previews lazy).
 - Comparison: tick the checkbox on up to 4 cards and open them side by side.
 - Navigation: a left sidebar groups models by family; clicking a family name expands its models, and clicking a model jumps to that card (quick navigation only — it does not filter or compare).
