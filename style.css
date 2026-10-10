@@ -51,6 +51,15 @@ body {
 /* `hidden` must win over the display rules below. */
 [hidden] { display: none !important; }
 
+/* One visible focus ring for every control. The icon-style buttons in the
+ * header are the case that needs it most — there is no text to underline.
+ * No border-radius here: the outline already follows each control's own
+ * corners, and setting one would square off the pill-shaped buttons. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ============ Header ============ */
 .site-header {
   position: sticky;
@@ -88,15 +97,76 @@ body {
   gap: 0.5rem;
 }
 
-#langSelect {
-  font: inherit;
-  color: var(--text);
-  background: var(--surface);
+/* ============ Language switch ============
+ * Same 36px box as .theme-toggle / .github-link, so the header reads as one
+ * aligned row of icon controls instead of one square, one pill, one square.
+ * The real <select> is invisible and fills the whole box: it keeps native
+ * keyboard and mobile behaviour, while the globe + code badge are what you
+ * see. The badge shows the CURRENT language deliberately — with a bare globe
+ * icon there would be no way to tell which language is active. Flags are not
+ * used on purpose: they denote countries, and Windows Chrome renders them as
+ * bare letters.
+ */
+.lang-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 36px;
+  padding: 0 0.5rem;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 0.3rem 0.5rem;
+  background: var(--surface);
+  color: var(--text);
   cursor: pointer;
+  transition: background-color 0.15s ease;
 }
+
+.lang-switch:hover { background: var(--chip-bg); }
+
+/* The <select> is the thing that receives focus, so the ring goes on the box
+ * that contains it. Base rule for every browser… */
+.lang-switch:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* …refined where :has() exists: only keyboard focus should draw the ring. A
+ * plain mouse click on a control nobody is tabbing through just adds noise. */
+@supports selector(:has(*)) {
+  .lang-switch:focus-within { outline: none; }
+  .lang-switch:has(select:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.lang-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  /* Fixed width: "EN" and "中文" differ in width, and a control that changes
+   * size when you use it makes the whole header row jump. */
+  min-width: 2em;
+  text-align: center;
+}
+
+/* Transparent, but live — this is the actual control. Last in the markup so it
+ * stays on top and receives the clicks. */
+.lang-switch select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  opacity: 0;
+  cursor: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.lang-switch select:focus-visible { outline: none; }
 
 .theme-toggle {
   font: inherit;

@@ -6,11 +6,19 @@
  *      (A few missing keys are OK — `en` is used as fallback.)
  *   2. Add one entry to SUPPORTED_LANGS below:
  *        - code:  the key you used in I18N (also the localStorage value)
- *        - label: shown in the language selector
+ *        - label: full name, shown in the language menu (in its own language)
+ *        - short: shown on the header badge — 2-3 characters, no flag emoji
+ *                 (a flag is a country, not a language, and Windows Chrome
+ *                 renders flags as bare letters)
  *        - match: lowercase browser codes to auto-detect (e.g. "zh-tw")
  *
- *   The selector, persistence and auto-detection update
- *   automatically — no other code changes needed.
+ *   The badge, the menu, persistence and auto-detection all read
+ *   SUPPORTED_LANGS — no other code changes needed. `short` is required in
+ *   practice: without it the badge falls back to the uppercased code, which
+ *   reads as "ZH-TW" in the header instead of a proper label.
+ *
+ *   This file is pure data plus `detectLang()` — it touches no DOM, which is
+ *   what lets index.html load it in <head> for the pre-paint script.
  * ============================================================ */
 
 const I18N = {
@@ -90,10 +98,31 @@ const I18N = {
 };
 
 const SUPPORTED_LANGS = [
-  { code: "en", label: "English", match: ["en"] },
+  { code: "en", label: "English", short: "EN", match: ["en"] },
   // Any `zh*` browser code maps to Traditional Chinese
   // (the site's primary audience writes in zh-TW).
-  { code: "zh-TW", label: "繁體中文", match: ["zh"] },
+  { code: "zh-TW", label: "繁體中文", short: "中文", match: ["zh"] },
 ];
 
 const DEFAULT_LANG = SUPPORTED_LANGS[0].code;
+
+/** Entry for a language code, falling back to the default. Never undefined. */
+function langMeta(code) {
+  return SUPPORTED_LANGS.find((l) => l.code === code) || SUPPORTED_LANGS[0];
+}
+
+/* Which language to show: a stored choice wins, otherwise match the browser.
+ * Used by main.js AND by the pre-paint script in index.html — keep it here so
+ * the two can never disagree about what the visitor should be shown. */
+function detectLang() {
+  let saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  if (saved && I18N[saved]) return saved;
+  const nav = (navigator.language || "").toLowerCase();
+  for (const l of SUPPORTED_LANGS) {
+    if (l.match.includes(nav) || (nav && l.match.includes(nav.slice(0, 2)))) {
+      return l.code;
+    }
+  }
+  return DEFAULT_LANG;
+}

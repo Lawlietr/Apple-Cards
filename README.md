@@ -120,9 +120,13 @@ apple-cards/
 目前支援：英文（`en`）、繁體中文（`zh-TW`）。介面文字集中在 `i18n.js`，要再加語言：
 
 1. `I18N` 中新增該語言物件（key 照 `en` 抄，缺漏的 key 會自動 fallback 到英文）
-2. `SUPPORTED_LANGS` 加一列（`code`、`label`、`match`）
+2. `SUPPORTED_LANGS` 加一列（`code`、`label`、`short`、`match`）
+   —— `short` 是右上角語言按鈕上的 2–3 字代碼徽章（如 `EN`、`中文`），
+   **不要用旗標 emoji**：旗標是國家不是語言，且 Windows Chrome 會把它渲染成純字母。
 
-語言選擇器、自動偵測與記憶自動生效，不需改其他程式碼。
+語言徽章、下拉選單、自動偵測與記憶全部讀 `SUPPORTED_LANGS`，不需改其他程式碼
+（但少了 `short` 徽章會顯示成大写語言碼）。右上角的控件看起來是 icon 按鈕，
+底層其實是透明的原生 `<select>`，因此鍵盤操作與行動裝置的原生選單仍然可用。
 
 ## 提示詞規範
 

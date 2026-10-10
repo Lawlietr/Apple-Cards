@@ -16,6 +16,8 @@ const MIN_COMPARE = 2;
 const root = document.documentElement;
 const themeBtn = document.getElementById("themeToggle");
 const langSelect = document.getElementById("langSelect");
+const langSwitch = document.getElementById("langSwitch");
+const langBadge = document.getElementById("langBadge");
 const filtersEl = document.getElementById("filters");
 const gridEl = document.getElementById("grid");
 const footEl = document.getElementById("gridFoot");
@@ -61,21 +63,15 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
   if (!store.get("theme")) paintTheme(e.matches ? "dark" : "light");
 });
 
-/* ---------- i18n ---------- */
-function pickLang() {
-  const saved = store.get("lang");
-  if (saved && I18N[saved]) return saved;
-  const nav = (navigator.language || "").toLowerCase();
-  for (const l of SUPPORTED_LANGS) {
-    if (l.match.includes(nav) || (nav && l.match.includes(nav.slice(0, 2)))) {
-      return l.code;
-    }
-  }
-  return DEFAULT_LANG;
-}
-
+/* ---------- i18n ----------
+ * The header control looks like an icon button but it is a real <select>,
+ * painted transparent over the globe + code badge, so keyboard interaction and
+ * mobile native pickers keep working. Language detection itself lives in
+ * i18n.js (`detectLang()`) because the pre-paint script in index.html needs
+ * it too — one implementation, so the two can never disagree.
+ */
 const state = {
-  lang: pickLang(),
+  lang: detectLang(),
   family: "all",
   visible: INITIAL_BATCH,
   view: "gallery", // "gallery" | "compare"
@@ -129,6 +125,17 @@ function buildLangSelect() {
     langSelect.appendChild(opt);
   }
   langSelect.value = state.lang;
+  paintLangBadge();
+}
+
+/* Paint the visible half of the control: the badge repeats the current language
+ * (the icon alone cannot say which one is on) and the tooltip names it in the
+ * language now showing. Both read SUPPORTED_LANGS, so adding a language there
+ * is enough — but give it a `short`, or the badge shows the bare code. */
+function paintLangBadge() {
+  const meta = langMeta(state.lang);
+  langBadge.textContent = meta.short || meta.code.toUpperCase();
+  langSwitch.setAttribute("title", `${t("lang.label")}: ${meta.label}`);
 }
 
 langSelect.addEventListener("change", () => {
