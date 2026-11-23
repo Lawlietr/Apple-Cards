@@ -65,4 +65,8 @@ const MODELS = [
     notes: ["llama.cpp", "Q6_K_XL", "KV Q8_0", "temp 1.0", "top-p 0.95", "top-k 20", "min-p 0.0"] },
   { family: "Qwen",     variant: "Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S.gguf", file: "Qwen/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S.gguf/index.html", added: "2026-10-07",
     notes: ["Strata", "IQ3_S", "KV Q4_0"] },
+  { family: "ThinkingMachines", variant: "Inkling-2-Small",
+    file: "ThinkingMachines/Inkling-2-Small/index.html", added: "2026-11-23",
+    notes: ["PolyStrata 0.2.20-poly.1"],
+    params: { quant: "UD-Q3_K_XL", temperature: "1.0", top_p: "1.0", top_k: 64, min_p: "0.0" } },
 ];
