@@ -45,7 +45,7 @@ apple-cards/
 ├── OpenBMB/
 │   └── Sharp-MiniCPM5-2B-GGUF/
 ├── ThinkingMachines/
-│   └── Inkling-2-Small/
+│   └── Inkling-2-Mini/
 └── ...
 ```
 
@@ -64,7 +64,7 @@ apple-cards/
 
 | 加入日期 | 模型家族 | 具體變體 | 檔案 |
 |---------|---------|---------|------|
-| 2026-11-23 | ThinkingMachines | Inkling-2-Small | `ThinkingMachines/Inkling-2-Small/index.html` |
+| 2026-11-23 | ThinkingMachines | Inkling-2-Mini | `ThinkingMachines/Inkling-2-Mini/index.html` |
 | 2026-10-07 | Qwen | Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S.gguf | `Qwen/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S.gguf/index.html` |
 | 2026-10-01 | OpenBMB | Sharp-MiniCPM5-2B-GGUF | `OpenBMB/Sharp-MiniCPM5-2B-GGUF/index.html` |
 | 2026-09-13 | Qwen | Cyber-Tiel-Coder | `Qwen/Cyber-Tiel-Coder/index.html` |
