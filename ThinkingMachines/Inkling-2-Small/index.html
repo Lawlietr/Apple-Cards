@@ -100,11 +100,11 @@
   /* tape strip */
   .tape {
     position: absolute;
-    top: -12px;
+    top: -9px;
     left: 50%;
     transform: translateX(-50%) rotate(-2.5deg);
-    width: 128px;
-    height: 30px;
+    width: 104px;
+    height: 22px;
     background: linear-gradient(180deg, rgba(246, 228, 143, 0.92), rgba(238, 216, 130, 0.88));
     box-shadow: 0 2px 6px rgba(62, 48, 30, 0.25);
     border-left: 1.5px dashed rgba(255, 255, 255, 0.6);
@@ -468,7 +468,7 @@
 
   .stat-bar {
     margin-top: 7px;
-    height: 5px;
+    height: 6px;
     border-radius: 99px;
     background: rgba(90, 80, 60, 0.15);
     overflow: hidden;
@@ -746,37 +746,36 @@
     var bars = document.querySelectorAll(".stat-bar i");
 
     function reveal() {
-      values.forEach(function (el) {
+      values.forEach(function (el, i) {
         var target = parseFloat(el.getAttribute("data-target"));
         var decimals = parseInt(el.getAttribute("data-decimals") || "0", 10);
+        var final = target.toFixed(decimals);
         if (prefersReduced) {
-          el.textContent = target.toFixed(decimals);
+          el.textContent = final;
           return;
         }
         var start = null;
-        var duration = 900;
+        var duration = 800 + i * 60;
         function frame(ts) {
           if (!start) start = ts;
           var p = Math.min((ts - start) / duration, 1);
           var eased = 1 - Math.pow(1 - p, 3);
           el.textContent = (target * eased).toFixed(decimals);
           if (p < 1) requestAnimationFrame(frame);
+          else el.textContent = final;
         }
         requestAnimationFrame(frame);
+        /* final-state fallback，rAF 未推進時也保證結束值 */
+        setTimeout(function () { el.textContent = final; }, duration + 150);
       });
       bars.forEach(function (bar, i) {
         setTimeout(function () {
           bar.style.width = bar.getAttribute("data-width") + "%";
-        }, 150 + i * 120);
+        }, 200 + i * 120);
       });
     }
 
-    window.addEventListener("load", function () {
-      setTimeout(reveal, 250);
-    });
-    window.addEventListener("DOMContentLoaded", function () {
-      if (document.readyState === "complete") setTimeout(reveal, 250);
-    });
+    setTimeout(reveal, 350);
 
     /* --- sticker tilt on hover of badge area handled by CSS --- */
   })();
