@@ -48,6 +48,18 @@
 6. `README.md`「已測試模型」與 `llms.txt`「Available cards」兩份表格
    必須同步為最新的在前，並帶加入日期欄位。
 
+## 驗證與部署（必須遵守）
+1. **不得在本地起測試服務**（例如 `python3 -m http.server`）。驗證一律讀已部署的 GitHub Pages
+   URL：用遠端瀏覽器 MCP 開 `https://lawlietr.github.io/Apple-Cards/`，或 `curl` 看狀態碼與位元組數。
+   若因故已在本地起過服務，該輪結束前要確認進程已停止、log 與截圖等暫存檔已刪除，repo 內不留殘跡。
+2. Pages 對每個檔都回傳 `cache-control: max-age=600`（HTML、`main.js`、`models.js`、卡片檔、
+   iframe 內的卡片皆同）。看不到更新時先硬重載（`Cmd + Shift + R`），或帶查詢參數繞過快取
+   （`https://lawlietr.github.io/Apple-Cards/?v=<commit-sha>`）。這**不等於**部署失敗。
+
+部署事實：push 到 `github/main` 會觸發 `.github/workflows/deploy-pages.yml`，約 20 秒完成；
+用 `gh run list --repo Lawlietr/Apple-Cards` 可看結果。卡片內容以「本機位元組數 = 線上位元組數」
+作為已上線的核計量。
+
 ## 支援的模型格式
 
 - 資料夾內 `index.html`（Gemma、OpenAI、Qwen 等）
